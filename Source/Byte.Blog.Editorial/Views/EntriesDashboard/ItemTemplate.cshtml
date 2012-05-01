@@ -1,0 +1,17 @@
+﻿@using Byte.Blog.Framework.Web
+
+@model global::Byte.Blog.Editorial.Models.EntryEditModel
+
+@Html.IdFor(m => m.Id)
+
+<td>
+    <a class="edit-link" href="@Url.Action("edit", "entries", new { entryId = "__id__" })" data-id="<%= @Html.IdFor(m => m.Id) %>">
+        <%= @Html.IdFor(m => m.Title) %>
+    </a>
+</td>
+<td><%= @Html.IdFor(m => m.Slug) %></td>
+<td><%= DateUtility.getDateTimeParts(@Html.IdFor(m => m.PublishedAtUtc)).combined %></td>
+<td><%= DateUtility.getDateTimeParts(@Html.IdFor(m => m.LastModifiedAtUtc)).combined %></td>
+<td><span class="label" style="background-color: <%= @Html.IdFor(m => m.PageColor) %>"><%= @Html.IdFor(m => m.PageTitle) %></span></td>
+<td><% _.each(@Html.IdFor(m => m.Tags), function(tag) { %><span class="label label-info"><%= tag %></span><% }); %></td>
+

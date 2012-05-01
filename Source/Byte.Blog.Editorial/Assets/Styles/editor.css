@@ -1,0 +1,10 @@
+﻿#footer-scripts
+{
+    display: none;
+}
+
+#wmd-preview
+{
+    background-color: #fff;
+    border: 5px dotted #ccc;
+}

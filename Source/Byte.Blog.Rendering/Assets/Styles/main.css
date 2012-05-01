@@ -1,0 +1,102 @@
+﻿#footer-scripts
+{
+    display: none;
+}
+
+body 
+{
+    background-image: url('/rendering/assets/images/stripes.png');
+    font-family: Calibri, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 10px 0px 0px 0px;
+    margin: 0px;
+    color: #555555;
+}
+
+.social
+{
+    padding: 3px;
+}
+
+.header h1
+{
+    margin-bottom:0;
+    font-size:50px;
+    line-height:1;
+    color:inherit;
+    letter-spacing:-1px;
+}
+
+.header p
+{
+    color: #888;
+    font-size: 0.8em;
+    line-height: 1.0em;
+    padding-top: 5px;
+}
+
+#navigation
+{
+    position: relative;
+    height: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #CCC;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+#navigation ul
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation ul li
+{
+    float: left;
+}
+
+#navigation ul li a.underline
+{
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    height: 35px;
+    border-bottom-width: 4px;
+    border-bottom-style: solid;
+    line-height: 38px;
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    margin-left: 1px;
+    color: #999999;
+}
+
+#content-container
+{
+    
+    background-color: #FFFFFF;
+    border: 1px solid #CCC;
+}
+
+.pad20
+{
+    padding: 20px;
+}
+
+.sidebar
+{
+    padding: 20px 20px 20px 0px;
+}
+
+.sidebar h3
+{
+    border-bottom: 1px solid #999;
+    margin-bottom: 4px;
+}
+
+.entry
+{
+    border-bottom: 1px solid #999;
+}

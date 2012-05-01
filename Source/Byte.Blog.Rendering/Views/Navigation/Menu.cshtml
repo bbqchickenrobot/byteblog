@@ -1,0 +1,24 @@
+﻿@model IEnumerable<global::Byte.Blog.Rendering.Models.PageViewModel>
+
+<ul class="nav">
+    @foreach (var page in Model)
+    {
+        <li>
+            @Html.ActionLink(
+                page.Title, 
+                "viewpage", 
+                "pages", 
+                new
+                {
+                    pageSlug = page.Slug
+                }, 
+                new
+                {
+                    @class = "span2 underline", 
+                    style = "border-bottom-color: " + page.HtmlColor + ";" 
+                })
+        </li>
+        <li class="divider-vertical"></li>
+    }
+</ul>
+                        

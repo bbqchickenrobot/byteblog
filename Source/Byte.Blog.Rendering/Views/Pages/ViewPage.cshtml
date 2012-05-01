@@ -1,0 +1,14 @@
+﻿@model global::Byte.Blog.Rendering.Models.EntryCollectionViewModel
+@{
+    Layout = "~/Areas/Rendering/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var entry in Model.Entries)
+{
+    <div class="entry">
+        <h2>@entry.Title</h2>
+        <div>
+            @Html.Raw(entry.Body)
+        </div>
+    </div>
+}

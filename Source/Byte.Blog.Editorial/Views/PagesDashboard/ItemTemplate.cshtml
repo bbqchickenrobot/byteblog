@@ -1,0 +1,23 @@
+﻿@using Byte.Blog.Content
+@using Byte.Blog.Framework.Web
+
+@model global::Byte.Blog.Editorial.Models.PageEditModel
+
+@Html.IdFor(m => m.Id)
+
+@{
+    var homepageId = global::Byte.Blog.Content.Page.HomePage.Id;
+}
+
+<td>
+    <% if(@Html.IdFor(m => m.Id) != '@homepageId') { %>
+        <a class="edit-link" href="@Url.Action("edit", "pages", new { pageId = "__id__" })" data-id="<%= @Html.IdFor(m => m.Id) %>">
+    <% } %>
+            <%= @Html.IdFor(m => m.Title) %>
+    <% if(@Html.IdFor(m => m.Id) != '@homepageId') { %>
+    </a>
+    <% } %>
+</td>
+<td><span class="label" style="background-color: <%= @Html.IdFor(m => m.HtmlColor) %>"><%= @Html.IdFor(m => m.HtmlColor) %></span></td>
+<td><%= @Html.IdFor(m => m.Slug) %></td>
+<td><%= DateUtility.getDateTimeParts(@Html.IdFor(m => m.LastModifiedAtUtc)).combined %></td>

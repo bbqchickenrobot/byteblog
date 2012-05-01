@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Byte Blog</title>
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/bootstrap.min.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/bootstrap-responsive.min.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/editor.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/datepicker.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/timePicker.css")" />
+        <link rel="stylesheet" href="@Url.Content("~/editorial/assets/styles/markdown.css")" />
+    </head>
+    <body>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <div class="well">
+                        <h1>Blog Editor</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2">
+                    @Html.Partial("Menu")
+                </div>
+                <div class="span10">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+
+        <div id="footer-scripts">
+            <script src="@Url.Content("~/editorial/assets/scripts/lib/jquery-1.7.2.min.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/lib/underscore-min.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/lib/backbone.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/lib/bootstrap.min.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/lib/spin.min.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/StringUtility.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/DateUtility.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/ArrayUtility.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/EntryEditModel.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/PageEditModel.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/FetchableCollection.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/DashboardItemView.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/editorial/assets/scripts/DashboardView.js")" type="text/javascript"></script>
+            
+            @RenderSection("FooterScripts", false)
+
+        </div>
+    </body>
+</html>
