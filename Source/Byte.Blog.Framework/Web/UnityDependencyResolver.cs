@@ -8,7 +8,7 @@ namespace Byte.Blog.Framework.Web
 {
     public class UnityDependencyResolver : IDependencyResolver
     {
-        private IUnityContainer container;
+        private readonly IUnityContainer container;
 
         public UnityDependencyResolver(IUnityContainer container)
         {

@@ -1,0 +1,28 @@
+﻿@using Byte.Blog.Framework.Web
+@model global::Byte.Blog.Editorial.Models.LoginViewModel
+
+@Html.ValidationSummary()
+
+@using (Html.BeginForm("login", "login", FormMethod.Post, new { id = "loginform" }))
+{
+    <div class="row-fluid">
+        <div class="span12">
+            <fieldset class="well well-small">
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Username)
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.PasswordFor(m => m.Password)
+                    </div>
+                </div>
+                @Html.HiddenFor(m => m.ReturnUrl)
+                <button type="submit">Login</button>
+            </fieldset>
+        </div>
+    </div>    
+}

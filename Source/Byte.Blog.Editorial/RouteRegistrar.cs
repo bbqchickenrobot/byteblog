@@ -13,10 +13,20 @@ namespace Byte.Blog.Editorial
 
         public void RegisterRoutes()
         {
+            this.RegisterLoginRoutes();
             this.RegisterEntryDashboardRoutes();
             this.RegisterPageDashboardRoutes();
             this.RegisterEntryRoutes();
             this.RegisterPageRoutes();
+        }
+
+        private void RegisterLoginRoutes()
+        {
+            //editorial/login
+            this.context.MapRoute(
+                "Editorial-Login",
+                "editorial/login",
+                new { controller = "Login", action = "Login" });
         }
 
         private void RegisterEntryDashboardRoutes()

@@ -8,6 +8,7 @@ using Raven.Client.Linq;
 
 namespace Byte.Blog.Editorial.Controllers
 {
+    [Authorize]
     public class EntriesDashboardController : RavenController
     {
         private const int EntriesPerPage = 10;

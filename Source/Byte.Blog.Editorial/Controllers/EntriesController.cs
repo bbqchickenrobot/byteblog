@@ -8,6 +8,7 @@ using Raven.Client;
 
 namespace Byte.Blog.Editorial.Controllers
 {
+    [Authorize]
     public class EntriesController : RavenController
     {
         public EntriesController(IDocumentStore documentStore)
