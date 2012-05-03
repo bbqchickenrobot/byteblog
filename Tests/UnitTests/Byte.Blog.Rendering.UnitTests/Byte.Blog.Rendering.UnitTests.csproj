@@ -90,6 +90,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -103,6 +104,7 @@
     <Compile Include="Models\AutoMapperConfigTests.cs" />
     <Compile Include="Models\EntryToEntryViewModelMapperTests.cs" />
     <Compile Include="Models\PageToPageViewModelMapperTests.cs" />
+    <Compile Include="Controllers\NavigationControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +116,17 @@
       <Project>{FB7D41F8-3C56-4BBB-9C7E-48B4284485BD}</Project>
       <Name>Byte.Blog.Content</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Source\Byte.Blog.Framework\Byte.Blog.Framework.csproj">
+      <Project>{4B6CD148-7B77-4178-965B-81F9464B32EE}</Project>
+      <Name>Byte.Blog.Framework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Source\Byte.Blog.Rendering\Byte.Blog.Rendering.csproj">
       <Project>{69C91D95-01F3-4CE9-B267-003CAB1AAD31}</Project>
       <Name>Byte.Blog.Rendering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Byte.Blog.Framework.UnitTests\Byte.Blog.Framework.UnitTests.csproj">
+      <Project>{EC7C3A3C-A4BB-4A46-AF0A-4307FC758933}</Project>
+      <Name>Byte.Blog.Framework.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
