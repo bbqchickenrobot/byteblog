@@ -119,6 +119,8 @@
   <ItemGroup>
     <Compile Include="Controllers\EntriesControllerTests.cs" />
     <Compile Include="Controllers\EntriesDashboardControllerTests.cs" />
+    <Compile Include="Controllers\PagesControllerTests.cs" />
+    <Compile Include="Controllers\PagesDashboardControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
