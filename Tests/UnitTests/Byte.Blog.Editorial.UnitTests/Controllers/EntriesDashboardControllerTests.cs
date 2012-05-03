@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Web.Mvc;
 using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Editorial.Controllers;
 using Byte.Blog.Editorial.Models;
 using Byte.Blog.Framework.UnitTests;
+using Raven.Client;
 using Xunit;
 
 namespace Byte.Blog.Editorial.UnitTests.Controllers
@@ -21,7 +23,8 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             int entryCount = 2;
 
-            var entries = this.GetTestEntries(entryCount);
+            var entries = GetTestEntries(entryCount);
+            SaveTestEntries(store, entries);
 
             using (var entriesDashboardController = new EntriesDashboardController(store))
             {
@@ -29,21 +32,14 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                 {
                     RavenControllerTestHelper.SetSessionOnController(entriesDashboardController, session);
 
-                    foreach (var entry in entries)
+                    var queryModel = new EntryDashboardQueryModel
                     {
-                        session.Store(entry);
-                    }
-                    session.SaveChanges();
+                        PageNumber = 1,
+                        PageSize = 20
+                    };
 
-                    var actionResult = entriesDashboardController.Fetch(
-                        new EntryDashboardQueryModel
-                        {
-                            PageNumber = 1,
-                            PageSize = 20
-                        });
-
-                    var jsonData = (actionResult as System.Web.Mvc.JsonResult).Data;
-                    var entryEditModels = jsonData as IEnumerable<EntryEditModel>;
+                    var actionResult = entriesDashboardController.Fetch(queryModel);
+                    var entryEditModels = GetEntryEditModelsFromResult(actionResult);
 
                     foreach (var entry in entries)
                     {
@@ -63,7 +59,8 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             int entryCount = 30;
 
-            var entries = this.GetTestEntries(entryCount);
+            var entries = GetTestEntries(entryCount);
+            SaveTestEntries(store, entries);
 
             using (var entriesDashboardController = new EntriesDashboardController(store))
             {
@@ -71,30 +68,21 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                 {
                     RavenControllerTestHelper.SetSessionOnController(entriesDashboardController, session);
 
-                    foreach (var entry in entries)
-                    {
-                        session.Store(entry);
-                    }
-                    session.SaveChanges();
-
                     var queryModel = new EntryDashboardQueryModel
                     {
                         PageNumber = 1,
                         PageSize = 20
                     };
 
-                    var actionResult = entriesDashboardController.Fetch(
-                        queryModel);
-
-                    var jsonData = (actionResult as System.Web.Mvc.JsonResult).Data;
-                    var entryEditModels = jsonData as IEnumerable<EntryEditModel>;
+                    var actionResult = entriesDashboardController.Fetch(queryModel);
+                    var entryEditModels = GetEntryEditModelsFromResult(actionResult);
 
                     Assert.Equal(queryModel.PageSize, entryEditModels.Count());
                 }
             }
         }
 
-        private IEnumerable<Entry> GetTestEntries(int number)
+        private static IEnumerable<Entry> GetTestEntries(int number)
         {
             return Enumerable.Range(0, number)
                 .Select(n =>
@@ -103,6 +91,29 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                         Id = "entries/" + n,
                         Title = "entry " + n
                     });
+        }
+
+        private static void SaveTestEntries(IDocumentStore store, IEnumerable<Entry> entries)
+        {
+            using (var session = store.OpenSession())
+            {
+                foreach (var entry in entries)
+                {
+                    session.Store(entry);
+                }
+                session.SaveChanges();
+            }
+        }
+
+        private static IEnumerable<EntryEditModel> GetEntryEditModelsFromResult(ActionResult actionResult)
+        {
+            var jsonResult = actionResult as JsonResult;
+            if (jsonResult == null)
+            {
+                return Enumerable.Empty<EntryEditModel>();
+            }
+
+            return jsonResult.Data as IEnumerable<EntryEditModel>;
         }
     }
 }
