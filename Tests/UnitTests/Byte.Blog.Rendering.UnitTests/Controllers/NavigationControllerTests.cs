@@ -5,6 +5,7 @@ using Byte.Blog.Content;
 using Byte.Blog.Framework.UnitTests;
 using Byte.Blog.Rendering.Controllers;
 using Byte.Blog.Rendering.Models;
+using Raven.Client;
 using Xunit;
 
 namespace Byte.Blog.Rendering.UnitTests.Controllers
@@ -21,18 +22,13 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
 
             int pagesCount = 2;
 
-            var pages = this.GetTestPages(pagesCount);
+            var pages = GetTestPages(pagesCount);
+            SaveTestPages(store, pages);
 
             using (var navigationController = new NavigationController(store))
             {
                 using (var session = store.OpenSession())
                 {
-                    foreach (var page in pages)
-                    {
-                        session.Store(page);
-                    }
-                    session.SaveChanges();
-
                     RavenControllerTestHelper.SetSessionOnController(navigationController, session);
 
                     var actionResult = navigationController.Menu();
@@ -56,18 +52,13 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
 
             int pagesCount = 2;
 
-            var pages = this.GetTestPages(pagesCount);
+            var pages = GetTestPages(pagesCount);
+            SaveTestPages(store, pages);
 
             using (var navigationController = new NavigationController(store))
             {
                 using (var session = store.OpenSession())
                 {
-                    foreach (var page in pages)
-                    {
-                        session.Store(page);
-                    }
-                    session.SaveChanges();
-
                     RavenControllerTestHelper.SetSessionOnController(navigationController, session);
                     
                     var actionResult = navigationController.Menu();
@@ -83,7 +74,7 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
             Mapper.Reset();
         }
 
-        private IEnumerable<Page> GetTestPages(int number)
+        private static IEnumerable<Page> GetTestPages(int number)
         {
             return Enumerable.Range(0, number)
                 .Select(n =>
@@ -92,6 +83,18 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
                         Id = "pages/" + n,
                         Title = "page " + n
                     });
+        }
+
+        private static void SaveTestPages(IDocumentStore store, IEnumerable<Page> pages)
+        {
+            using (var session = store.OpenSession())
+            {
+                foreach (var page in pages)
+                {
+                    session.Store(page);
+                }
+                session.SaveChanges();
+            }
         }
     }
 }
