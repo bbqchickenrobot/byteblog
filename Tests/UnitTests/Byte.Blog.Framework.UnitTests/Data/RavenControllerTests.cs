@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using Byte.Blog.Content;
 using Byte.Blog.Framework.Data;
 using Raven.Client;
-using Raven.Client.Embedded;
 using Xunit;
 
 namespace Byte.Blog.Framework.UnitTests.Data
@@ -13,7 +12,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         [Fact]
         public void Raven_session_is_not_opened_before_on_action_executing()
         {
-            var store = GetTestStore();
+            var store = new TestableStore();
             var controller = new TestableController(store);
 
             Assert.Null(controller.Session);
@@ -22,7 +21,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         [Fact]
         public void Raven_session_is_opened_on_action_executing()
         {
-            var store = GetTestStore();
+            var store = new TestableStore();
             var controller = new TestableController(store);
 
             StartActionExecuting(controller);
@@ -38,7 +37,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         {
             var testDocument = new Entry("entries/123") { Title = "foo" };
 
-            var store = GetTestStore();
+            var store = new TestableStore();
 
             using (var session = store.OpenSession())
             {
@@ -70,7 +69,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         {
             var testDocument = new Entry("entries/123") { Title = "foo" };
 
-            var store = GetTestStore();
+            var store = new TestableStore();
 
             using (var session = store.OpenSession())
             {
@@ -135,18 +134,6 @@ namespace Byte.Blog.Framework.UnitTests.Data
             {
                 base.OnActionExecuted(filterContext);
             }
-        }
-
-        private static IDocumentStore GetTestStore()
-        {
-            var store = new EmbeddableDocumentStore()
-            {
-                RunInMemory = true,
-            };
-
-            store.Initialize();
-
-            return store;
         }
     }
 }
