@@ -14,13 +14,11 @@ namespace Byte.Blog.Framework.UnitTests.Web
         {
             var area = new TestableAreaRegistration();
 
+            var registrationContext = new AreaRegistrationContext("foo", new RouteCollection());
+
             Assert.Throws(
                 typeof(Exception),
-                () => area.RegisterArea(
-                    new AreaRegistrationContext(
-                        "foo",
-                        new RouteCollection()),
-                    null));
+                () => area.RegisterArea(registrationContext, null));
         }
 
         [Fact]
@@ -28,7 +26,7 @@ namespace Byte.Blog.Framework.UnitTests.Web
         {
             var area = new TestableAreaRegistration();
 
-            Assert.Equal("Byte.Blog.Framework.UnitTests.Web", area.AreaName);
+            Assert.Equal(this.GetType().Namespace, area.AreaName);
         }
 
         private class TestableAreaRegistration : AreaRegistrationBase
