@@ -22,6 +22,7 @@ namespace Byte.Blog.Rendering.Models
 
             var page = this.session
                 .Query<Page>()
+                .Where(p => !p.Deleted)
                 .FirstOrDefault(p => p.Slug == slug);
 
             return page;

@@ -26,7 +26,7 @@ namespace Byte.Blog.Rendering.Controllers
             var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
 
             var entryViewModels = this.session.Query<Entry>()
-                .Where(e => e.PageId == page.Id && e.Published)
+                .Where(e => e.PageId == page.Id && e.Published && !e.Deleted)
                 .OrderByDescending(e => e.PublishedAtUtc)
                 .ToList()
                 .Select(entryToEntryViewModelMapper.Map);

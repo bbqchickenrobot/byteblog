@@ -17,7 +17,7 @@ namespace Byte.Blog.Rendering.Controllers
         public ActionResult Menu()
         {
             var pages = this.session.Query<Page>()
-                .Where(p => p.Deleted == false)
+                .Where(p => !p.Deleted)
                 .ToList();
 
             pages.Insert(0, Page.HomePage);
