@@ -114,9 +114,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControllerTestHelper.cs" />
+    <Compile Include="RavenControllerTestHelper.cs" />
     <Compile Include="Data\RavenControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringExtensionsTests.cs" />
+    <Compile Include="TestableStore.cs" />
     <Compile Include="Web\AreaRegistrationBaseTests.cs" />
     <Compile Include="Web\UnityDependencyResolverTests.cs" />
   </ItemGroup>

@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\EntriesControllerTests.cs" />
+    <Compile Include="Controllers\EntriesDashboardControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +136,10 @@
     <ProjectReference Include="..\..\..\Source\Byte.Blog.Framework\Byte.Blog.Framework.csproj">
       <Project>{4B6CD148-7B77-4178-965B-81F9464B32EE}</Project>
       <Name>Byte.Blog.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Byte.Blog.Framework.UnitTests\Byte.Blog.Framework.UnitTests.csproj">
+      <Project>{EC7C3A3C-A4BB-4A46-AF0A-4307FC758933}</Project>
+      <Name>Byte.Blog.Framework.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

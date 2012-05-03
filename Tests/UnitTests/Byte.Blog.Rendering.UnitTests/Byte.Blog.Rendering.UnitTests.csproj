@@ -36,6 +36,9 @@
     <Reference Include="AsyncCtpLibrary">
       <HintPath>..\..\..\packages\RavenDB-Embedded.1.0.701\lib\net40\AsyncCtpLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\packages\AutoMapper.2.1.265\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\..\..\packages\RavenDB-Embedded.1.0.701\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -97,10 +100,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AutoMapperConfigTests.cs" />
+    <Compile Include="Models\EntryToEntryViewModelMapperTests.cs" />
+    <Compile Include="Models\PageToPageViewModelMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Source\Byte.Blog.Content\Byte.Blog.Content.csproj">
+      <Project>{FB7D41F8-3C56-4BBB-9C7E-48B4284485BD}</Project>
+      <Name>Byte.Blog.Content</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Source\Byte.Blog.Rendering\Byte.Blog.Rendering.csproj">
+      <Project>{69C91D95-01F3-4CE9-B267-003CAB1AAD31}</Project>
+      <Name>Byte.Blog.Rendering</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />

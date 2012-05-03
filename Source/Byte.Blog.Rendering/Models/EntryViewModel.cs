@@ -16,6 +16,7 @@ namespace Byte.Blog.Rendering.Models
         public string PageId { get; set; }
         public IEnumerable<string> Tags { get; set; }
         public IEnumerable<string> References { get; set; }
+        public bool Published { get; set; }
 
         public EntryViewModel()
         {

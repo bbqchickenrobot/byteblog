@@ -9,6 +9,8 @@ namespace Byte.Blog.Rendering.Models
         {
             Mapper.CreateMap<Entry, EntryViewModel>();
             Mapper.CreateMap<Page, PageViewModel>();
+
+            Mapper.AssertConfigurationIsValid();
         }
     }
 }
