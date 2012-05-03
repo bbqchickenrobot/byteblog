@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Models\PageFactory.cs" />
     <Compile Include="Models\PageToPageViewModelMapper.cs" />
     <Compile Include="Models\AutoMapperConfig.cs" />
     <Compile Include="Controllers\PagesController.cs" />
