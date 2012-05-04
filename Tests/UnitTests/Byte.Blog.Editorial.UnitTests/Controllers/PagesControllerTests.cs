@@ -2,6 +2,7 @@
 using Byte.Blog.Content;
 using Byte.Blog.Editorial.Controllers;
 using Byte.Blog.Editorial.Models;
+using Byte.Blog.Framework;
 using Byte.Blog.Framework.UnitTests;
 using Xunit;
 
@@ -23,7 +24,7 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                 Title = "foo"
             };
 
-            using (var pagesController = new PagesController(store))
+            using (var pagesController = new PagesController(store, new SlugMaker()))
             {
                 using (var session = store.OpenSession())
                 {
@@ -54,7 +55,7 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             var store = new TestableStore();
 
-            using (var pagesController = new PagesController(store))
+            using (var pagesController = new PagesController(store, new SlugMaker()))
             {
                 using (var session = store.OpenSession())
                 {
@@ -82,7 +83,7 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                 Title = "foo"
             };
 
-            using (var pagesController = new PagesController(store))
+            using (var pagesController = new PagesController(store, new SlugMaker()))
             {
                 using (var session = store.OpenSession())
                 {
