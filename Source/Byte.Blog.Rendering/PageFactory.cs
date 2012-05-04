@@ -2,7 +2,7 @@
 using Byte.Blog.Content;
 using Raven.Client;
 
-namespace Byte.Blog.Rendering.Models
+namespace Byte.Blog.Rendering
 {
     public class PageFactory
     {

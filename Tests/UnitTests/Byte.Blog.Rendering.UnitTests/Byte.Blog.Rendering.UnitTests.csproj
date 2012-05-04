@@ -101,10 +101,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\AutoMapperConfigTests.cs" />
     <Compile Include="Models\EntryToEntryViewModelMapperTests.cs" />
     <Compile Include="Models\PageToPageViewModelMapperTests.cs" />
     <Compile Include="Controllers\NavigationControllerTests.cs" />
+    <Compile Include="PageFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
