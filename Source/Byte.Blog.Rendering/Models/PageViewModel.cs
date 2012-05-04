@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace Byte.Blog.Rendering.Models
 {
     public class PageViewModel
@@ -7,5 +9,8 @@ namespace Byte.Blog.Rendering.Models
         public string Slug { get; set; }
         public string Title { get; set; }
         public string HtmlColor { get; set; }
+
+        public int PageNumber { get; set; }
+        public IEnumerable<EntryViewModel> Entries { get; set; }
     }
 }

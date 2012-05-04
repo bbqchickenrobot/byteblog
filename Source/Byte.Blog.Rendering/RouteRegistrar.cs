@@ -31,8 +31,8 @@ namespace Byte.Blog.Rendering
         {
             context.MapRoute(
                 "Entries-EntrySlug",
-                "entries/{entrySlug}",
-                new { controller = "Entries", action = "ViewEntry", entrySlug = UrlParameter.Optional }
+                "{pageSlug}/{entrySlug}",
+                new { controller = "Entries", action = "ViewEntry" }
             );
         }
 

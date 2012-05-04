@@ -133,6 +133,8 @@
 
         var attrs = this.getModelAttributesFromForm();
 
+        console.log('attrs', attrs);
+
         this.model.save(attrs, {
             url: this.saveUrl,
             success: options.success,
@@ -143,6 +145,8 @@
     getModelAttributesFromForm: function () {
 
         var attrsFound = $(this.el).serializeObject();
+
+        console.log('attrsFound', attrsFound);
 
         //ASP.NET MVC inserts a hidden 'false' input for each checkbox.
         //Without it, the input name for the checkbox would not submit a 'false' value when unchecked.

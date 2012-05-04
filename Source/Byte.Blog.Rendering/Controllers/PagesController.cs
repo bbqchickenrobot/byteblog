@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using Byte.Blog.Content;
+﻿using System.Web.Mvc;
 using Byte.Blog.Framework.Data;
 using Byte.Blog.Rendering.Models;
 using Raven.Client;
@@ -23,20 +21,10 @@ namespace Byte.Blog.Rendering.Controllers
                 return new HttpNotFoundResult("No such page.");
             }
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
+            var pageToPageViewModelMapper = new PageToPageViewModelMapper(this.session);
+            var pageViewModel = pageToPageViewModelMapper.Map(page);
 
-            var entryViewModels = this.session.Query<Entry>()
-                .Where(e => e.PageId == page.Id && e.Published && !e.Deleted)
-                .OrderByDescending(e => e.PublishedAtUtc)
-                .ToList()
-                .Select(entryToEntryViewModelMapper.Map);
-
-            var entryCollectionViewModel = new EntryCollectionViewModel
-            {
-                Entries = entryViewModels
-            };
-
-            return this.View(entryCollectionViewModel);
+            return this.View(pageViewModel);
         }
     }
 }

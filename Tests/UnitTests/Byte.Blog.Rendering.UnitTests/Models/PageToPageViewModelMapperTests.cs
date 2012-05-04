@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Byte.Blog.Content;
+using Byte.Blog.Framework.UnitTests;
 using Byte.Blog.Rendering.Models;
 using Xunit;
 
@@ -20,10 +21,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Title = title
             };
 
-            var pageToPageViewModelMapper = new PageToPageViewModelMapper();
-            var pageViewModel = pageToPageViewModelMapper.Map(page);
+            var store = new TestableStore();
 
-            Assert.Equal(title, pageViewModel.Title);
+            using (var session = store.OpenSession())
+            {
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var pageViewModel = pageToPageViewModelMapper.Map(page);
+
+                Assert.Equal(title, pageViewModel.Title);
+            }
 
             Mapper.Reset();
         }
@@ -41,10 +47,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Slug = slug
             };
 
-            var pageToPageViewModelMapper = new PageToPageViewModelMapper();
-            var pageViewModel = pageToPageViewModelMapper.Map(page);
+            var store = new TestableStore();
 
-            Assert.Equal(slug, pageViewModel.Slug);
+            using (var session = store.OpenSession())
+            {
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var pageViewModel = pageToPageViewModelMapper.Map(page);
+
+                Assert.Equal(slug, pageViewModel.Slug);
+            }
 
             Mapper.Reset();
         }
@@ -62,10 +73,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 HtmlColor = color
             };
 
-            var pageToPageViewModelMapper = new PageToPageViewModelMapper();
-            var pageViewModel = pageToPageViewModelMapper.Map(page);
+            var store = new TestableStore();
 
-            Assert.Equal(color, pageViewModel.HtmlColor);
+            using (var session = store.OpenSession())
+            {
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var pageViewModel = pageToPageViewModelMapper.Map(page);
+
+                Assert.Equal(color, pageViewModel.HtmlColor);
+            }
 
             Mapper.Reset();
         }

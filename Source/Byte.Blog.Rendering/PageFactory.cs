@@ -15,15 +15,13 @@ namespace Byte.Blog.Rendering
 
         public Page CreateFromSlug(string slug)
         {
-            if (string.IsNullOrEmpty(slug))
+            if (string.IsNullOrWhiteSpace(slug) || slug == Page.HomePage.Slug)
             {
                 return Page.HomePage;
             }
 
-            var page = this.session
-                .Query<Page>()
-                .Where(p => !p.Deleted)
-                .FirstOrDefault(p => p.Slug == slug);
+            var page = this.session.Query<Page>()
+                .FirstOrDefault(p => p.Slug == slug && !p.Deleted);
 
             return page;
         }

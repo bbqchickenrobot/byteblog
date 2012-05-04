@@ -51,11 +51,11 @@
 
                 <div class="control-group">
                     <div class="controls">
-                        <label class="radio" for="Draft">
-                            @Html.RadioButtonFor(m => m.Published, false, new { id = "Draft" }) Draft 
+                        <label class="radio" for="published-draft">
+                            @Html.RadioButtonFor(m => m.Published, false, new { id = "published-draft" }) Draft 
                         </label>
-                        <label class="radio" for="Published">
-                            @Html.RadioButtonFor(m => m.Published, true, new { id = "Published" }) Published
+                        <label class="radio" for="published-published">
+                            @Html.RadioButtonFor(m => m.Published, true, new { id = "published-published" }) Published
                         </label>
                     </div>
                 </div>

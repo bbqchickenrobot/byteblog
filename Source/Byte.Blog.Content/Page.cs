@@ -8,7 +8,7 @@ namespace Byte.Blog.Content
 
         public static Page HomePage = new Page(IdPrefix + "homepage")
         {
-            Slug = "",
+            Slug = "home",
             Title = "Home Page",
             HtmlColor = "#FF250D",
             LastModifiedAtUtc = DateTime.UtcNow
