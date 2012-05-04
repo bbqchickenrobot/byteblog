@@ -1,13 +1,11 @@
-﻿window.DisqusView = Backbone.View.extend({
+﻿window.EntryView = Backbone.View.extend({
 
     developer: null,
     pageSlug: null,
     entrySlug: null,
-    canonicalUrl: null,
+    //canonicalUrl: null,
 
     initialize: function (options) {
-
-        this.developer = options.developer;
 
         this.pageSlug = this.$el.data('page-slug');
         this.entrySlug = this.$el.data('entry-slug');
@@ -20,9 +18,8 @@
     setDisqusVariables: function () {
 
         window.disqus_shortname = 'benlakey';
-        window.disqus_developer = this.developer;
         //window.disqus_category_id = this.pageSlug;
-        //window.disqus_identifier = this.entrySlug;
+        window.disqus_identifier = this.entrySlug;
         //window.disqus_url = this.canonicalUrl;
 
     },

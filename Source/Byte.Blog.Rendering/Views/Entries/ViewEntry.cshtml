@@ -14,15 +14,16 @@
 
 @section FooterScripts {
 
-    <script src="@Url.Content("~/rendering/assets/scripts/DisqusView.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/rendering/assets/scripts/EntryView.js")" type="text/javascript"></script>
     
     <script type="text/javascript">
 
         $(document).ready(function () {
 
+            window.disqus_developer = @(MvcApplication.EnvironmentType == EnvironmentType.Development ? '1' : '0');
+
             return new window.DisqusView({ 
-                el: $('.entry'),
-                developer: 1
+                el: $('.entry')
             });
 
         });
