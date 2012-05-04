@@ -33,7 +33,7 @@ namespace Byte.Blog.Editorial.Models
                 {
                     Text = color.FriendlyName,
                     Value = color.HexColor,
-                    Selected = color.HexColor == currentHexColor ? true : false
+                    Selected = color.HexColor == currentHexColor
                 });
         }
     }
