@@ -18,7 +18,6 @@ namespace Byte.Blog.Rendering.Models
         public IEnumerable<string> Tags { get; set; }
         public IEnumerable<string> References { get; set; }
         public bool Published { get; set; }
-        public string CanonicalUrl { get; set; }
 
         public EntryViewModel()
         {

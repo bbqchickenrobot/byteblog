@@ -4,7 +4,7 @@
     Layout = "~/Areas/Rendering/Views/Shared/_Layout.cshtml";
 }
 
-<div class="entry" data-page-slug="@Model.PageSlug" data-entry-slug="@Model.Slug" data-canonical-url="@Model.CanonicalUrl">
+<div class="entry" data-page-slug="@Model.PageSlug" data-entry-slug="@Model.Slug">
     <h2>@Model.Title</h2>
     <div>
         @Html.Raw(Model.Body)

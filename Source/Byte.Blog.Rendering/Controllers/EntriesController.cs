@@ -33,9 +33,6 @@ namespace Byte.Blog.Rendering.Controllers
 
             entryViewModel.PageSlug = pageSlug;
 
-            var canonicalUrlFactory = new CanonicalUrlFactory(this.ControllerContext.RequestContext);
-            entryViewModel.CanonicalUrl = canonicalUrlFactory.FromEntryViewModel(entryViewModel);
-
             return this.View(entryViewModel);
         }
     }

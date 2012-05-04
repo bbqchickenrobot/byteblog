@@ -90,7 +90,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CanonicalUrlFactory.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="EntryFactory.cs" />

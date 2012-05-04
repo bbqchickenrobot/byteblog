@@ -11,7 +11,7 @@
 
         this.pageSlug = this.$el.data('page-slug');
         this.entrySlug = this.$el.data('entry-slug');
-        this.canonicalUrl = this.$el.data('canonical-url');
+        //this.canonicalUrl = this.$el.data('canonical-url');
 
         this.setDisqusVariables();
         this.activateDisqus();
@@ -23,7 +23,7 @@
         window.disqus_developer = this.developer;
         window.disqus_category_id = this.pageSlug;
         window.disqus_identifier = this.entrySlug;
-        window.disqus_url = this.canonicalUrl;
+        //window.disqus_url = this.canonicalUrl;
 
     },
 
