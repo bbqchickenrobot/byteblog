@@ -25,7 +25,7 @@ namespace Byte.Blog.Editorial
             //editorial/login
             this.context.MapRoute(
                 "Editorial-Login",
-                "editorial/login",
+                "editorial/auth/login",
                 new { controller = "Login", action = "Login" });
         }
 
