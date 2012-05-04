@@ -2,6 +2,7 @@
 using System.Text;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Byte.Blog.Framework.Web;
 using Byte.Blog.Rendering.Models;
 
 namespace Byte.Blog.Rendering
@@ -32,7 +33,16 @@ namespace Byte.Blog.Rendering
 
             stringBuilder.Append(Uri.UriSchemeHttp);
             stringBuilder.Append(Uri.SchemeDelimiter);
-            stringBuilder.Append(this.requestContext.HttpContext.Request.Url.Authority);
+
+            if (MvcApplication.EnvironmentType == EnvironmentType.Development)
+            {
+                stringBuilder.Append(this.requestContext.HttpContext.Request.Url.Authority);
+            }
+            else
+            {
+                stringBuilder.Append(this.requestContext.HttpContext.Request.Url.Host);
+            }
+
             stringBuilder.Append(relativeUrl);
 
             return stringBuilder.ToString();
