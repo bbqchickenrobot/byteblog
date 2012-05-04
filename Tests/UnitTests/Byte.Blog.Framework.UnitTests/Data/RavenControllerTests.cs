@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Byte.Blog.Content;
 using Byte.Blog.Framework.Data;
 using Raven.Client;
 using Xunit;
@@ -35,7 +34,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         [Fact]
         public void If_no_exception_occurred_then_changes_are_saved()
         {
-            var testDocument = new Entry("entries/123") { Title = "foo" };
+            var testDocument = new Foo { Id = "foos/123", Title = "foo" };
 
             var store = new TestableStore();
 
@@ -51,7 +50,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             using (var session = controller.Session)
             {
-                var doc = session.Load<Entry>(testDocument.Id);
+                var doc = session.Load<Foo>(testDocument.Id);
                 doc.Title = "bar";
 
                 FinishActionExecuted(controller);
@@ -59,7 +58,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             using (var session = store.OpenSession())
             {
-                var doc = session.Load<Entry>(testDocument.Id);
+                var doc = session.Load<Foo>(testDocument.Id);
                 Assert.Equal("bar", doc.Title);
             }
         }
@@ -67,7 +66,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
         [Fact]
         public void If_exception_occurred_then_changes_are_not_saved()
         {
-            var testDocument = new Entry("entries/123") { Title = "foo" };
+            var testDocument = new Foo { Id = "foos/123", Title = "foo" };
 
             var store = new TestableStore();
 
@@ -83,7 +82,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             using (var session = controller.Session)
             {
-                var doc = session.Load<Entry>(testDocument.Id);
+                var doc = session.Load<Foo>(testDocument.Id);
                 doc.Title = "bar";
 
                 FinishActionExecuted(controller, true);
@@ -91,7 +90,7 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             using (var session = store.OpenSession())
             {
-                var doc = session.Load<Entry>(testDocument.Id);
+                var doc = session.Load<Foo>(testDocument.Id);
                 Assert.Equal("foo", doc.Title);
             }
         }
@@ -134,6 +133,12 @@ namespace Byte.Blog.Framework.UnitTests.Data
             {
                 base.OnActionExecuted(filterContext);
             }
+        }
+
+        public class Foo
+        {
+            public string Id { get; set; }
+            public string Title { get; set; }
         }
     }
 }
