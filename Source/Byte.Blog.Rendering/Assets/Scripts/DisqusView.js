@@ -21,8 +21,8 @@
 
         window.disqus_shortname = 'benlakey';
         window.disqus_developer = this.developer;
-        window.disqus_category_id = this.pageSlug;
-        window.disqus_identifier = this.entrySlug;
+        //window.disqus_category_id = this.pageSlug;
+        //window.disqus_identifier = this.entrySlug;
         //window.disqus_url = this.canonicalUrl;
 
     },
