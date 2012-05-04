@@ -22,7 +22,7 @@
 
             window.disqus_developer = @(MvcApplication.EnvironmentType == EnvironmentType.Development ? '1' : '0');
 
-            return new window.DisqusView({ 
+            return new window.EntryView({ 
                 el: $('.entry')
             });
 
