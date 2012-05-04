@@ -24,15 +24,19 @@ namespace Byte.Blog.Editorial.Models
 
             entryEditModel.Preview = markdown.Transform(entry.Body);
 
-            var page = this.GetPage(entry.PageId);
+            this.PopulatePageValues(entryEditModel);
+            this.PopulatePossiblePages(entryEditModel);
+
+            return entryEditModel;
+        }
+
+        private void PopulatePageValues(EntryEditModel entryEditModel)
+        {
+            var page = this.GetPage(entryEditModel.PageId);
 
             entryEditModel.PageId = page.Id;
             entryEditModel.PageTitle = page.Title;
             entryEditModel.PageColor = page.HtmlColor;
-
-            entryEditModel.PossiblePages = this.GetPossiblePages();
-
-            return entryEditModel;
         }
 
         private Page GetPage(string pageId)
@@ -49,6 +53,11 @@ namespace Byte.Blog.Editorial.Models
             }
 
             return page;
+        }
+
+        private void PopulatePossiblePages(EntryEditModel entryEditModel)
+        {
+            entryEditModel.PossiblePages = this.GetPossiblePages();
         }
 
         private IEnumerable<Page> GetPossiblePages()
