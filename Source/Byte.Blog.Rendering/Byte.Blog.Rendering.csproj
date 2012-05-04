@@ -108,7 +108,7 @@
     <None Include="packages.config" />
     <Content Include="Assets\Images\glyphicons-halflings-white.png" />
     <Content Include="Assets\Images\glyphicons-halflings.png" />
-    <Content Include="Assets\Scripts\DisqusView.js" />
+    <Content Include="Assets\Scripts\EntryView.js" />
     <Content Include="Assets\Scripts\lib\backbone.js" />
     <Content Include="Assets\Scripts\lib\bootstrap.min.js" />
     <Content Include="Assets\Scripts\lib\jquery-1.7.2.min.js" />
