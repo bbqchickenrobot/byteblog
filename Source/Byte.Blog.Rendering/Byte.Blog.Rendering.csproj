@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanonicalUrlFactory.cs" />
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="EntryFactory.cs" />
@@ -108,13 +109,11 @@
     <None Include="packages.config" />
     <Content Include="Assets\Images\glyphicons-halflings-white.png" />
     <Content Include="Assets\Images\glyphicons-halflings.png" />
-    <Content Include="Assets\Scripts\PageView.js" />
-    <Content Include="Assets\Scripts\Disqus.js" />
+    <Content Include="Assets\Scripts\DisqusView.js" />
     <Content Include="Assets\Scripts\lib\backbone.js" />
     <Content Include="Assets\Scripts\lib\bootstrap.min.js" />
     <Content Include="Assets\Scripts\lib\jquery-1.7.2.min.js" />
     <Content Include="Assets\Scripts\lib\Markdown.Converter.js" />
-    <Content Include="Assets\Scripts\EntryView.js" />
     <Content Include="Assets\Styles\bootstrap.min.css" />
     <Content Include="Assets\Styles\markdown.css" />
     <Content Include="Views\shared\_Layout.cshtml" />

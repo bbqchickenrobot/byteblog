@@ -31,6 +31,11 @@ namespace Byte.Blog.Rendering.Controllers
             var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
             var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
+            entryViewModel.PageSlug = pageSlug;
+
+            var canonicalUrlFactory = new CanonicalUrlFactory(this.ControllerContext.RequestContext);
+            entryViewModel.CanonicalUrl = canonicalUrlFactory.FromEntryViewModel(entryViewModel);
+
             return this.View(entryViewModel);
         }
     }

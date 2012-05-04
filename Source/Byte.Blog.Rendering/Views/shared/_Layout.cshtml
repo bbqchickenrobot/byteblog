@@ -87,18 +87,9 @@
             <script src="@Url.Content("~/rendering/assets/scripts/lib/underscore-min.js")" type="text/javascript"></script>
             <script src="@Url.Content("~/rendering/assets/scripts/lib/backbone-min.js")" type="text/javascript"></script>
             <script src="@Url.Content("~/rendering/assets/scripts/lib/bootstrap.min.js")" type="text/javascript"></script>
-            
-            @if (MvcApplication.EnvironmentType == EnvironmentType.Development)
-            {
-                <script type="text/javascript">
-                    window.disqus_developer = 1;
-                </script>
-            }
+            <script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f26479f35b744ef" type="text/javascript"></script>
 
             @RenderSection("FooterScripts", false)
-
-            <script src="@Url.Content("~/rendering/assets/scripts/Disqus.js")" type="text/javascript"></script>
-            <script src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4f26479f35b744ef" type="text/javascript"></script>
 
         </div>
     </body>
