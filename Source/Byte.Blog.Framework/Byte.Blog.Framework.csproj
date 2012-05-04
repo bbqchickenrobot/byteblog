@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\RavenController.cs" />
+    <Compile Include="HtmlColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SlugMaker.cs" />
     <Compile Include="StringExtensions.cs" />

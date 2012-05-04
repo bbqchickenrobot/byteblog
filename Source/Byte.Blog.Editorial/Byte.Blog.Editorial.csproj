@@ -92,7 +92,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PagesDashboardController.cs" />
-    <Compile Include="Models\HtmlColor.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PageEditModelToPageMapper.cs" />
     <Compile Include="Models\PageEditModel.cs" />

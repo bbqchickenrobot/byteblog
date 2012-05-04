@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using Byte.Blog.Content;
+using Byte.Blog.Framework;
 using Raven.Client;
 
 namespace Byte.Blog.Editorial.Models

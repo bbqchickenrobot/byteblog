@@ -1,5 +1,5 @@
 ﻿
-namespace Byte.Blog.Editorial.Models
+namespace Byte.Blog.Framework
 {
     public class HtmlColor
     {
