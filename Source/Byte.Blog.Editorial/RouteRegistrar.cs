@@ -18,6 +18,7 @@ namespace Byte.Blog.Editorial
             this.RegisterPageDashboardRoutes();
             this.RegisterEntryRoutes();
             this.RegisterPageRoutes();
+            this.RegisterImportExportRoutes();
         }
 
         private void RegisterLoginRoutes()
@@ -111,6 +112,21 @@ namespace Byte.Blog.Editorial
                 "Editorial-Pages-Save",
                 "editorial/pages/save",
                 new { controller = "Pages", action = "Save" });
+        }
+
+        private void RegisterImportExportRoutes()
+        {
+            //editorial/importexport/fromwordpress
+            this.context.MapRoute(
+                "Editorial-ImportExport-FromWordpress",
+                "editorial/importexport/fromwordpress",
+                new { controller = "ImportExport", action = "FromWordpress" });
+
+            //editorial/importexport/importwordpressxml
+            this.context.MapRoute(
+                "Editorial-ImportExport-ImportWordpressXml",
+                "editorial/importexport/importwordpressxml",
+                new { controller = "ImportExport", action = "ImportWordpressXml" });
         }
     }
 }
