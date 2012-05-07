@@ -132,6 +132,7 @@
     <Content Include="Assets\Scripts\lib\Markdown.Editor.js" />
     <Content Include="Assets\Scripts\lib\Markdown.Sanitizer.js" />
     <Content Include="Assets\Scripts\lib\serializeObject.js" />
+    <Content Include="Assets\Scripts\PaginationView.js" />
     <Content Include="Assets\Scripts\StringUtility.js" />
     <Content Include="Assets\Scripts\DashboardItemView.js" />
     <Content Include="Assets\Scripts\FetchableCollection.js" />

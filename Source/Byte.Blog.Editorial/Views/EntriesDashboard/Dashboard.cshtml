@@ -23,9 +23,12 @@
     </tbody>
 </table>
 
+<div class="pagination"></div>
+
 @section FooterScripts 
 {
     <script src="@Url.Content("~/editorial/assets/scripts/EntryEditModel.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/editorial/assets/scripts/PaginationView.js")" type="text/javascript"></script>
 
     <script type="text/template" id="entry-dashboard-item-template">
         @Html.Partial("ItemTemplate", new EntryEditModel())
@@ -42,6 +45,13 @@
                 fetchUrl: '@Url.Action("fetch")',
                 pageNumber: $('#PageNumber').val(),
                 pageSize: $('#PageSize').val()
+            });
+
+            var paginationView = new window.PaginationView({ 
+                el: $('.pagination'),
+                currentPageNumber: @Model.PageNumber,
+                totalItems: 50,   //temporary hack
+                itemsPerPage: @Model.PageSize
             });
 
         });
