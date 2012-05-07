@@ -15,6 +15,14 @@
 
         getDateTimeParts: function (date) {
 
+            if (!date) {
+                return {
+                    datePart: null,
+                    timePart: null,
+                    combined: null
+                };
+            }
+
             var meridiem = "AM";
 
             var hours = date.getHours();

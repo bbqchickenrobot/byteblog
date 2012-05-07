@@ -98,5 +98,16 @@ body
 
 .entry
 {
+    margin-bottom: 20px;
+}
+
+.entry h2
+{
+    margin-bottom: 10px;
+}
+
+.hrule
+{
     border-bottom: 1px solid #999;
+    margin-bottom: 20px;
 }

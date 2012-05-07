@@ -1,7 +1,13 @@
 ﻿<div id="wordpress-form" data-save-url="@Url.Action("ImportWordpressXml", "ImportExport")">
     <div class="alert response-message">Choose the wordpress XML file you'd like to import.</div>
-    <label for="WordpressXml">Wordpress Xml:</label>
-    <button type="button" id="import-button" name="import-button">Import File</button>
+    <div id="file-chooser">
+        <label for="WordpressXml">Wordpress Xml:</label>
+        <button type="button" id="choose-file" name="choose-file" class="btn">Choose File</button>
+    </div>
+    <div id="file-importer">
+        <h4 id="filename"></h4>
+        <button type="button" id="import-wordpress" name="import-wordpress" class="hide">Import</button>
+    </div>
 </div>
 
 @section FooterScripts

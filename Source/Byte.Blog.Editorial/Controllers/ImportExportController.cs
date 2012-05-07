@@ -29,7 +29,9 @@ namespace Byte.Blog.Editorial.Controllers
             var document = XDocument.Load(wordpressXml.InputStream);
 
             var wordpressImporter = new WordpressImporter(this.session);
-            var statistics = wordpressImporter.ImportFromXml(document);
+            wordpressImporter.ImportFromXml(document);
+
+            var statistics = wordpressImporter.GetStatistics();
 
             return this.Json(statistics);
         }

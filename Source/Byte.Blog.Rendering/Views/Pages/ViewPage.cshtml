@@ -7,8 +7,10 @@
 <div class="page">
     @foreach (var entry in Model.Entries)
     {
-        <div class="entry">
+        <div class="entry" data-published-at-utc="@entry.PublishedAtUtc">
             <h2>@entry.Title</h2>
+            <h6 class="published-at-utc muted pull-right"></h6>
+            <div class="hrule"></div>
             <div>
                 @Html.Raw(entry.Body)
             </div>
@@ -25,3 +27,18 @@
         </div>
     }
 </div>
+
+@section FooterScripts {
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            var publishedAtUtc = new Date($('.entry').data('published-at-utc'));
+            $('.published-at-utc').text(publishedAtUtc.toLocaleDateString() + ' ' + publishedAtUtc.toLocaleTimeString());
+
+        });
+
+    </script>
+
+}

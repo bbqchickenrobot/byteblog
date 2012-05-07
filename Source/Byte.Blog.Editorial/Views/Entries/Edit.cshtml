@@ -118,7 +118,7 @@
                 view: entryFormView
             });
 
-            var markdownConverter = Markdown.getSanitizingConverter();
+            var markdownConverter = new Markdown.Converter();
 
             var markdownEditor = new Markdown.Editor(markdownConverter);
             markdownEditor.run();

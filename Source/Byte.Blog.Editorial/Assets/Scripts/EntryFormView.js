@@ -133,8 +133,6 @@
 
         var attrs = this.getModelAttributesFromForm();
 
-        console.log('attrs', attrs);
-
         this.model.save(attrs, {
             url: this.saveUrl,
             success: options.success,

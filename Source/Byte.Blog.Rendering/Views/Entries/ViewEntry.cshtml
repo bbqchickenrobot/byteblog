@@ -4,8 +4,10 @@
     Layout = "~/Areas/Rendering/Views/Shared/_Layout.cshtml";
 }
 
-<div class="entry" data-page-slug="@Model.PageSlug" data-entry-slug="@Model.Slug">
+<div class="entry" data-page-slug="@Model.PageSlug" data-entry-slug="@Model.Slug" data-published-at-utc="@Model.PublishedAtUtc">
     <h2>@Model.Title</h2>
+    <h6 class="published-at-utc muted pull-right"></h6>
+    <div class="hrule"></div>
     <div>
         @Html.Raw(Model.Body)
     </div>
@@ -21,6 +23,9 @@
         $(document).ready(function () {
 
             window.disqus_developer = @(MvcApplication.EnvironmentType == EnvironmentType.Development ? '1' : '0');
+
+            var publishedAtUtc = new Date($('.entry').data('published-at-utc'));
+            $('.published-at-utc').text(publishedAtUtc.toLocaleDateString() + ' ' + publishedAtUtc.toLocaleTimeString());
 
             return new window.EntryView({ 
                 el: $('.entry')

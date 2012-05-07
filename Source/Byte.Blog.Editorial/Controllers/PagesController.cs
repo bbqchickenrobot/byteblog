@@ -11,12 +11,9 @@ namespace Byte.Blog.Editorial.Controllers
     [Authorize]
     public class PagesController : RavenController
     {
-        private readonly SlugMaker slugMaker;
-
-        public PagesController(IDocumentStore documentStore, SlugMaker slugMaker)
+        public PagesController(IDocumentStore documentStore)
             : base(documentStore)
         {
-            this.slugMaker = slugMaker;
         }
 
         public ActionResult New()
@@ -55,7 +52,9 @@ namespace Byte.Blog.Editorial.Controllers
                 return this.Json(new { error = true });
             }
 
-            var mapper = new PageEditModelToPageMapper(this.session, this.slugMaker);
+            var slugMaker = new SlugMaker();
+
+            var mapper = new PageEditModelToPageMapper(this.session, slugMaker);
             var page = mapper.Map(editModel);
 
             this.session.Store(page);
