@@ -20,10 +20,17 @@ namespace Byte.Blog.Editorial.Controllers
 
         public ActionResult Dashboard()
         {
+            RavenQueryStatistics stats;
+
+            var results = this.session.Query<Entry>()
+                .Statistics(out stats)
+                .ToArray();
+
             var dashboardQueryModel = new EntryDashboardQueryModel()
             {
                 PageNumber = 1,
-                PageSize = EntriesPerPage
+                PageSize = EntriesPerPage, 
+                TotalItems = stats.TotalResults
             };
 
             return this.View(dashboardQueryModel);

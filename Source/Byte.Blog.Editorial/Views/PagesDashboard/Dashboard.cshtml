@@ -1,29 +1,39 @@
 ﻿@using Byte.Blog.Editorial.Models
 @model global::Byte.Blog.Editorial.Models.PageDashboardQueryModel
 
-<div id="page-dashboard-query-settings">
-    @Html.HiddenFor(m => m.PageNumber)
-    @Html.HiddenFor(m => m.PageSize)
+<div id="page-dashboard">
+    
+    <div id="dashboard-settings">
+        @Html.HiddenFor(m => m.PageNumber)
+        @Html.HiddenFor(m => m.PageSize)
+        @Html.HiddenFor(m => m.TotalItems)
+    </div>
+
+    <h2>Pages</h2>
+
+    <table class="table table-striped dashboard-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Color</th>
+                <th>Slug</th>
+                <th>Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    
+    <div class="pagination dashboard-pagination"></div>
+
 </div>
 
-<h2>Pages</h2>
 
-<table class="table table-striped" id="page-dashboard-table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Color</th>
-            <th>Slug</th>
-            <th>Modified</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
 
 @section FooterScripts 
 {
     <script src="@Url.Content("~/editorial/assets/scripts/PageEditModel.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/editorial/assets/scripts/PaginationView.js")" type="text/javascript"></script>
 
     <script type="text/template" id="page-dashboard-item-template">
         @Html.Partial("ItemTemplate", new PageEditModel())
@@ -34,12 +44,10 @@
         $(function () {
 
             var pageDashboardView = new window.DashboardView({
-                el: $('#page-dashboard-table'),
+                el: $('#page-dashboard'),
                 model: window.PageEditModel,
                 itemTemplate: $('#page-dashboard-item-template'),
-                fetchUrl: '@Url.Action("fetch")',
-                pageNumber: $('#PageNumber').val(),
-                pageSize: $('#PageSize').val()
+                fetchUrl: '@Url.Action("fetch")'
             });
 
         });

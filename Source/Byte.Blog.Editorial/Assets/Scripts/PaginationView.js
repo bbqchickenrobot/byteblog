@@ -1,18 +1,12 @@
 ﻿window.PaginationView = Backbone.View.extend({
 
-    //static
-    pagesAwayFromCurrentToDisplay: 5,
-
-    //things coming from outside
     currentPageNumber: null,
     totalItems: null,
     itemsPerPage: 20,
 
-    //calculated
     minPageNumber: null,
     maxPageNumber: null,
 
-    //refs to hang on to
     listEl: null,
 
     initialize: function (options) {
@@ -21,18 +15,14 @@
         this.totalItems = options.totalItems;
         this.itemsPerPage = options.itemsPerPage;
 
-        this.render();
-
     },
 
     render: function () {
 
-        console.log('rendering pagination');
-
         this.calculateMinPageNumber();
         this.calculateMaxPageNumber();
 
-        this.listEl = $('<ul />').appendTo(this.$el);
+        this.setupPaginationListElement();
 
         this.renderPageLinks();
         this.renderPreviousLink();
@@ -44,61 +34,52 @@
 
     calculateMinPageNumber: function () {
 
-        var calculatedMinPageNumber = this.currentPageNumber - this.pagesAwayFromCurrentToDisplay;
+        var calculatedMinPageNumber = this.currentPageNumber - PaginationView.pagesAwayFromCurrentToDisplay;
 
-        console.log('calculatedMinPageNumber', calculatedMinPageNumber);
-
-        var minPossiblePageNumber = 0;
-
-        console.log('minPossiblePageNumber', minPossiblePageNumber);
+        var minPossiblePageNumber = 1;
 
         if (calculatedMinPageNumber < minPossiblePageNumber) {
-
             this.minPageNumber = minPossiblePageNumber;
-
-            console.log('calculatedMinPageNumber was less than minPossiblePageNumber, so set minPageNumber to: ' + this.minPageNumber);
-
         } else {
             this.minPageNumber = calculatedMinPageNumber;
-
-            console.log('calculatedMinPageNumber was acceptable, so set minPageNumber to: ' + this.minPageNumber);
         }
     },
 
     calculateMaxPageNumber: function () {
-        var calculatedMaxPageNumber = this.currentPageNumber + this.pagesAwayFromCurrentToDisplay;
 
-        console.log('calculatedMaxPageNumber', calculatedMaxPageNumber);
+        var calculatedMaxPageNumber = this.currentPageNumber + PaginationView.pagesAwayFromCurrentToDisplay;
 
-        var maxPossiblePageNumber = this.totalItems / this.itemsPerPage;
-
-        console.log('maxPossiblePageNumber', maxPossiblePageNumber);
+        var maxPossiblePageNumber = Math.ceil(this.totalItems / this.itemsPerPage);
 
         if (calculatedMaxPageNumber > maxPossiblePageNumber) {
-
             this.maxPageNumber = maxPossiblePageNumber;
-
-            console.log('calculatedMaxPageNumber was greater than maxPossiblePageNumber, so set maxPageNumber to: ' + this.maxPageNumber);
-
         } else {
-
             this.maxPageNumber = calculatedMaxPageNumber;
-
-            console.log('calculatedMaxPageNumber was acceptable, so set maxPageNumber to: ' + this.maxPageNumber);
-
         }
+    },
+
+    setupPaginationListElement: function () {
+
+        this.$el.empty();
+        this.listEl = $('<ul />').appendTo(this.$el);
+
     },
 
     renderPageLinks: function () {
 
         var self = this;
 
-        _.each(_.range(this.minPageNumber, this.maxPageNumber), function (pageNumberForLink) {
+        var minPageNum = parseInt(this.minPageNumber);
+        var maxPageNum = parseInt(this.maxPageNumber) + 1;
 
-            console.log('in renderPageLinks at index: ' + pageNumberForLink);
+        _.each(_.range(minPageNum, maxPageNum), function (pageNumberForLink) {
 
             var listItem = $('<li />')
                 .appendTo(self.listEl);
+
+            if (self.currentPageNumber == pageNumberForLink) {
+                listItem.addClass('active');
+            }
 
             $('<a />')
                 .attr('href', '#')
@@ -106,21 +87,23 @@
                 .appendTo(listItem)
                 .text(pageNumberForLink)
                 .on('click', function (e) {
-                    self.onClickPaginationLink(e);
+                    self.onClickPaginationLink.call(self, e);
                 });
         });
     },
 
     renderPreviousLink: function () {
 
-        var self = this;
-
-        var listItem = $('<li />')
-            .prependTo(self.listEl);
-
         var pageNumberForLink = this.currentPageNumber - 1;
 
-        console.log('in renderPreviousLink, and using pageNumberForLink: ' + pageNumberForLink);
+        var listItem = $('<li />')
+            .prependTo(this.listEl);
+
+        if (pageNumberForLink < this.minPageNumber) {
+            listItem.addClass('disabled');
+        }
+
+        var self = this;
 
         $('<a />')
             .attr('href', '#')
@@ -128,21 +111,23 @@
             .appendTo(listItem)
             .text('«')
             .on('click', function (e) {
-                self.onClickPaginationLink(e);
+                self.onClickPaginationLink.call(self, e);
             });
 
     },
 
     renderNextLink: function () {
 
-        var self = this;
-
-        var listItem = $('<li />')
-            .appendTo(self.listEl);
-
         var pageNumberForLink = this.currentPageNumber + 1;
 
-        console.log('in renderingNextLink, and using pageNumberForLink: ' + pageNumberForLink);
+        var listItem = $('<li />')
+            .appendTo(this.listEl);
+
+        if (pageNumberForLink > this.maxPageNumber) {
+            listItem.addClass('disabled');
+        }
+
+        var self = this;
 
         $('<a />')
             .attr('href', '#')
@@ -150,7 +135,7 @@
             .appendTo(listItem)
             .text('»')
             .on('click', function (e) {
-                self.onClickPaginationLink(e);
+                self.onClickPaginationLink.call(self, e);
             });
 
     },
@@ -161,11 +146,17 @@
 
         var pageToGoTo = $(e.target).data('pagination');
 
-        //ensure falls in range
+        if (pageToGoTo < this.minPageNumber || pageToGoTo > this.maxPageNumber) {
+            return;
+        }
 
-        console.log('onClickPaginationLink pageToGoTo', pageToGoTo);
-
-
+        this.currentPageNumber = pageToGoTo;
+        
+        this.trigger('pagination:changed', this.currentPageNumber, this.itemsPerPage);
 
     }
+}, {
+
+    pagesAwayFromCurrentToDisplay: 5
+
 });

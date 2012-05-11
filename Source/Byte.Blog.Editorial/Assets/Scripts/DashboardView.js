@@ -1,39 +1,54 @@
 ﻿(function () {
 
-    var spinnerTopBufferPixels = 20;
+    var spinnerTopBufferPixels = 100;
 
     window.DashboardView = Backbone.View.extend({
 
-        pageNumber: null,
-        pageSize: null,
         itemTemplate: null,
-
         dashboardItems: null,
+        paginationView: null,
 
         initialize: function (options) {
-
-            this.startSpinLoader();
 
             this.dashboardItems = new window.FetchableCollection([], {
                 fetchUrl: options.fetchUrl,
                 model: options.model
             });
 
-            this.pageNumber = options.pageNumber;
-            this.pageSize = options.pageSize;
             this.itemTemplate = options.itemTemplate;
 
-            this.fetch();
+            this.setupPagination();
         },
 
-        fetch: function () {
+        setupPagination: function () {
+
+            var pageNumber = $('#PageNumber').val();
+            var pageSize = $('#PageSize').val();
+            var totalItems = $('#TotalItems').val();
+
+            var self = this;
+
+            this.paginationView = new window.PaginationView({
+                el: $('.dashboard-pagination'),
+                currentPageNumber: pageNumber,
+                itemsPerPage: pageSize,
+                totalItems: totalItems
+            }).bind('pagination:changed', function (currentPageNumber, currentPageSize) {
+                self.fetch(currentPageNumber, currentPageSize);
+            }).trigger('pagination:changed', pageNumber, pageSize);
+
+        },
+
+        fetch: function (pageNumber, pageSize) {
+
+            this.startSpinLoader();
 
             var self = this;
 
             this.dashboardItems.fetch({
                 data: {
-                    PageNumber: this.pageNumber,
-                    PageSize: this.pageSize
+                    PageNumber: pageNumber,
+                    PageSize: pageSize
                 },
                 success: function () {
                     self.render();
@@ -59,11 +74,13 @@
             var self = this;
 
             this.dashboardItems.each(function (item) {
-                $(self.el).append(new window.DashboardItemView({
+                $(self.el).find('.dashboard-table').append(new window.DashboardItemView({
                     model: item,
                     template: self.itemTemplate
                 }).render().el);
             });
+
+            this.paginationView.render();
 
             return this;
         }

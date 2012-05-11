@@ -82,6 +82,7 @@ namespace Byte.Blog.Editorial
 
             entry.PageId = this.GetPageIdFromPost(post);
             entry.Body = post.Body;
+            entry.PublishedAtUtc = post.PublishedAtUtc;
             entry.LastModifiedAtUtc = DateTimeOffset.UtcNow;
             entry.Slug = post.Slug;
             entry.Title = post.Title;

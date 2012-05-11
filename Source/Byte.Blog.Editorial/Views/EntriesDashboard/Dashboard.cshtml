@@ -1,29 +1,33 @@
 ﻿@using Byte.Blog.Editorial.Models
 @model global::Byte.Blog.Editorial.Models.EntryDashboardQueryModel
 
-<div id="entry-dashboard-query-settings">
-    @Html.HiddenFor(m => m.PageNumber)
-    @Html.HiddenFor(m => m.PageSize)
+<div id="entry-dashboard">
+    
+    <div class="dashboard-settings">
+        @Html.HiddenFor(m => m.PageNumber)
+        @Html.HiddenFor(m => m.PageSize)
+        @Html.HiddenFor(m => m.TotalItems)
+    </div>
+
+    <h2>Entries</h2>
+
+    <table class="table table-striped dashboard-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Published</th>
+                <th>Modified</th>
+                <th>Pages</th>
+                <th>Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="pagination dashboard-pagination"></div>
+
 </div>
-
-<h2>Entries</h2>
-
-<table class="table table-striped" id="entry-dashboard-table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Slug</th>
-            <th>Published</th>
-            <th>Modified</th>
-            <th>Pages</th>
-            <th>Tags</th>
-        </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
-<div class="pagination"></div>
 
 @section FooterScripts 
 {
@@ -39,19 +43,10 @@
         $(function () {
 
             var entryDashboardView = new window.DashboardView({
-                el: $('#entry-dashboard-table'),
+                el: $('#entry-dashboard'),
                 model: window.EntryEditModel,
                 itemTemplate: $('#entry-dashboard-item-template'),
-                fetchUrl: '@Url.Action("fetch")',
-                pageNumber: $('#PageNumber').val(),
-                pageSize: $('#PageSize').val()
-            });
-
-            var paginationView = new window.PaginationView({ 
-                el: $('.pagination'),
-                currentPageNumber: @Model.PageNumber,
-                totalItems: 50,   //temporary hack
-                itemsPerPage: @Model.PageSize
+                fetchUrl: '@Url.Action("fetch")'
             });
 
         });
