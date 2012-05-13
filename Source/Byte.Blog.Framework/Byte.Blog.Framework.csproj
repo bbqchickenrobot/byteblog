@@ -90,6 +90,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CanonicalUrlGenerator.cs" />
     <Compile Include="Data\RavenController.cs" />
     <Compile Include="HtmlColor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

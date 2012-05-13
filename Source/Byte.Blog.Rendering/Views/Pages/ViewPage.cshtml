@@ -4,38 +4,26 @@
     Layout = "~/Areas/Rendering/Views/Shared/_Layout.cshtml";
 }
 
-<div class="page">
+<div class="page" data-disqus-shortname="@Model.DisqusShortname">
     @foreach (var entry in Model.Entries)
     {
-        <div class="entry" data-published-at-utc="@entry.PublishedAtUtc">
-            <h2>@entry.Title</h2>
-            <h6 class="published-at-utc muted pull-right"></h6>
-            <div class="hrule"></div>
-            <div>
-                @Html.Raw(entry.Body)
-            </div>
-            @Html.ActionLink(
-                "Comments...", 
-                "ViewEntry", 
-                "Entries", 
-                new
-                {
-                    pageSlug = string.IsNullOrWhiteSpace(Model.Slug) ? global::Byte.Blog.Content.Page.HomePage.Slug : Model.Slug, 
-                    entrySlug = entry.Slug
-                },
-                null)
-        </div>
+        @Html.Partial("Entry", entry)
+        <p><a href="@entry.CanonicalUrl#disqus_thread">comments</a></p>
     }
 </div>
 
 @section FooterScripts {
 
+    <script src="@Url.Content("~/rendering/assets/scripts/EntryView.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/rendering/assets/scripts/PageView.js")" type="text/javascript"></script>
+
     <script type="text/javascript">
 
         $(document).ready(function () {
 
-            var publishedAtUtc = new Date($('.entry').data('published-at-utc'));
-            $('.published-at-utc').text(publishedAtUtc.toLocaleDateString() + ' ' + publishedAtUtc.toLocaleTimeString());
+            window.EntryView.initializeAll();
+
+            return new window.PageView({ el: $('.page') });
 
         });
 

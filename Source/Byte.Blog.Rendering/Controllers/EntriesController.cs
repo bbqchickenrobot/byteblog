@@ -28,7 +28,7 @@ namespace Byte.Blog.Rendering.Controllers
                 return new HttpNotFoundResult("No such entry.");
             }
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
+            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(this.session);
             var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
             entryViewModel.PageSlug = pageSlug;

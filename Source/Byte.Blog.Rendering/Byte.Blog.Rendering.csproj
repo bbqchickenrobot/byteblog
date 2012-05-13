@@ -93,6 +93,7 @@
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="EntryFactory.cs" />
+    <Compile Include="Models\DisqusThreadViewModel.cs" />
     <Compile Include="PageFactory.cs" />
     <Compile Include="Models\PageToPageViewModelMapper.cs" />
     <Compile Include="Models\AutoMapperConfig.cs" />
@@ -108,6 +109,8 @@
     <None Include="packages.config" />
     <Content Include="Assets\Images\glyphicons-halflings-white.png" />
     <Content Include="Assets\Images\glyphicons-halflings.png" />
+    <Content Include="Assets\Scripts\PageView.js" />
+    <Content Include="Assets\Scripts\DisqusThreadView.js" />
     <Content Include="Assets\Scripts\EntryView.js" />
     <Content Include="Assets\Scripts\lib\backbone.js" />
     <Content Include="Assets\Scripts\lib\bootstrap.min.js" />
@@ -120,6 +123,7 @@
     <Content Include="Views\Navigation\Menu.cshtml" />
     <None Include="Views\Entries\ViewEntry.cshtml" />
     <None Include="Views\shared\Disqus.cshtml" />
+    <None Include="Views\shared\Entry.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

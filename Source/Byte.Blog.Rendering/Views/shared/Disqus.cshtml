@@ -1,2 +1,4 @@
-﻿<div id="disqus_thread"></div>
+﻿@model global::Byte.Blog.Rendering.Models.DisqusThreadViewModel
+
+<div id="disqus_thread" data-disqus-shortname="@Model.Shortname" data-disqus-identifier="@Model.Identifier" data-disqus-url="@Model.Url"></div>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>

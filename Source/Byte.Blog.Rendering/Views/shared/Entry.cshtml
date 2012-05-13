@@ -1,0 +1,11 @@
+﻿@using Byte.Blog.Framework.Web
+@model global::Byte.Blog.Rendering.Models.EntryViewModel
+
+<div class="hrule"></div>
+<div class="entry" data-published-at-utc="@Model.PublishedAtUtc">
+    <h2><a href="@Model.CanonicalUrl">@Model.Title</a></h2>
+    <h6 class="published-at-utc muted pull-right"></h6>
+    <div class="entry-body">
+        @Html.Raw(Model.Body)
+    </div>
+</div>

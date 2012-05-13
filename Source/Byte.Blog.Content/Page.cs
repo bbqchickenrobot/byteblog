@@ -20,7 +20,7 @@ namespace Byte.Blog.Content
         public string HtmlColor { get; set; }
         public DateTimeOffset LastModifiedAtUtc { get; set; }
         public bool Deleted { get; set; }
-        
+
         public Page() 
             : this(IdPrefix)
         {

@@ -1,36 +1,43 @@
 ﻿window.EntryView = Backbone.View.extend({
 
-    developer: null,
-    pageSlug: null,
-    entrySlug: null,
-    //canonicalUrl: null,
+    publishedAtUtc: null,
 
     initialize: function (options) {
 
-        this.pageSlug = this.$el.data('page-slug');
-        this.entrySlug = this.$el.data('entry-slug');
-        //this.canonicalUrl = this.$el.data('canonical-url');
-
-        this.setDisqusVariables();
-        this.activateDisqus();
-    },
-
-    setDisqusVariables: function () {
-
-        window.disqus_shortname = 'benlakey';
-        //window.disqus_category_id = this.pageSlug;
-        window.disqus_identifier = this.entrySlug;
-        //window.disqus_url = this.canonicalUrl;
+        this.initializeDate();
+        this.render();
 
     },
 
-    activateDisqus: function () {
+    initializeDate: function () {
 
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = 'http://' + window.disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        var publishedAtUtcStr = this.$el.data('published-at-utc');
+        this.publishedAtUtc = new Date(publishedAtUtcStr);
+    },
+
+    render: function () {
+
+        var publishedAtLocalStr = 
+            'Posted on ' +
+            this.publishedAtUtc.toLocaleDateString() +
+            ' ' +
+            this.publishedAtUtc.toLocaleTimeString();
+
+        this.$el
+            .find('.published-at-utc')
+            .text(publishedAtLocalStr);
+
+    }
+
+}, {
+
+    initializeAll: function () {
+
+        $('.entry').each(function (idx, el) {
+
+            var entry = new window.EntryView({ el: el });
+
+        });
 
     }
 });

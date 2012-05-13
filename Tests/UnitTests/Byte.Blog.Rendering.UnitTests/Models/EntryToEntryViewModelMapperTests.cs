@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using AutoMapper;
 using Byte.Blog.Content;
+using Byte.Blog.Framework.UnitTests;
 using Byte.Blog.Rendering.Models;
 using Xunit;
 
@@ -22,10 +23,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Title = title
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(title, entryViewModel.Title);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(title, entryViewModel.Title);
+            }
 
             Mapper.Reset();
         }
@@ -41,10 +47,17 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Deleted = true
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(true, entryViewModel.Deleted);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(true, entryViewModel.Deleted);
+            }
+
+            Mapper.Reset();
         }
 
         [Fact]
@@ -60,10 +73,17 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Id = id
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(id, entryViewModel.Id);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(id, entryViewModel.Id);
+            }
+
+            Mapper.Reset();
         }
 
         [Fact]
@@ -79,10 +99,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 LastModifiedAtUtc = lastModifiedAtUtc
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(lastModifiedAtUtc, entryViewModel.LastModifiedAtUtc);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(lastModifiedAtUtc, entryViewModel.LastModifiedAtUtc);
+            }
 
             Mapper.Reset();
         }
@@ -100,10 +125,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 PageId = pageId
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(pageId, entryViewModel.PageId);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(pageId, entryViewModel.PageId);
+            }
 
             Mapper.Reset();
         }
@@ -119,10 +149,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Published = true
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(true, entryViewModel.Published);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(true, entryViewModel.Published);
+            }
 
             Mapper.Reset();
         }
@@ -140,10 +175,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 PublishedAtUtc = publishedAtUtc
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(publishedAtUtc, entryViewModel.PublishedAtUtc);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(publishedAtUtc, entryViewModel.PublishedAtUtc);
+            }
 
             Mapper.Reset();
         }
@@ -161,10 +201,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 References = references
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(references, entryViewModel.References);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(references, entryViewModel.References);
+            }
 
             Mapper.Reset();
         }
@@ -182,10 +227,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Slug = slug
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(slug, entryViewModel.Slug);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(slug, entryViewModel.Slug);
+            }
 
             Mapper.Reset();
         }
@@ -203,10 +253,15 @@ namespace Byte.Blog.Rendering.UnitTests.Models
                 Tags = tags
             };
 
-            var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper();
-            var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+            var store = new TestableStore();
 
-            Assert.Equal(tags, entryViewModel.Tags);
+            using (var session = store.OpenSession())
+            {
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var entryViewModel = entryToEntryViewModelMapper.Map(entry);
+
+                Assert.Equal(tags, entryViewModel.Tags);
+            }
 
             Mapper.Reset();
         }
