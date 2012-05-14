@@ -130,7 +130,8 @@
     <Compile Include="TestableStore.cs" />
     <Compile Include="Web\AreaRegistrationBaseTests.cs" />
     <Compile Include="Web\HtmlHelperExtensionsTests.cs" />
-    <Compile Include="Web\TestableUrlHelper.cs" />
+    <Compile Include="Web\TestableHttpContextFactory.cs" />
+    <Compile Include="Web\TestableUrlHelperFactory.cs" />
     <Compile Include="Web\UnityDependencyResolverTests.cs" />
   </ItemGroup>
   <ItemGroup>

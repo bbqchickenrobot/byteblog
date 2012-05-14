@@ -28,7 +28,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -54,7 +55,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -82,7 +84,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -110,7 +113,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -138,7 +142,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -164,7 +169,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -192,7 +198,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -220,7 +227,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -248,7 +256,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
@@ -276,7 +285,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);

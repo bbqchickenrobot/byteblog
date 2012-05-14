@@ -26,7 +26,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
@@ -54,7 +55,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
@@ -82,7 +84,8 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var urlHelper = TestableUrlHelper.Create();
+                var testableUrlHelperFactory = new TestableUrlHelperFactory();
+                var urlHelper = testableUrlHelperFactory.Create();
 
                 var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
