@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
-using Byte.Blog.Framework.Web;
 
-namespace Byte.Blog.Framework
+namespace Byte.Blog.Framework.Web
 {
     public class CanonicalUrlGenerator
     {

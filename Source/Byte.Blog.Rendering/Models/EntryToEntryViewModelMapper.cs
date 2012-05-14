@@ -2,6 +2,7 @@
 using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Framework;
+using Byte.Blog.Framework.Web;
 using MarkdownSharp;
 using Raven.Client;
 
