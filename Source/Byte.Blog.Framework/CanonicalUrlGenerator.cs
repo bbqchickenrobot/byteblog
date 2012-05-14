@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using System.Web.Mvc;
 using Byte.Blog.Framework.Web;
 
@@ -7,13 +6,16 @@ namespace Byte.Blog.Framework
 {
     public class CanonicalUrlGenerator
     {
-        private readonly HttpRequest request;
+        //TODO: get from configuration
+        private const string DevelopmentHostname = "localhost";
+        private const int DevelopmentPort = 5000;
+        private const string ProductionHostname = "byteblog.apphb.com";
+
         private readonly UrlHelper urlHelper;
 
-        public CanonicalUrlGenerator(HttpRequest request)
+        public CanonicalUrlGenerator(UrlHelper urlHelper)
         {
-            this.request = request;
-            this.urlHelper = new UrlHelper(this.request.RequestContext);
+            this.urlHelper = urlHelper;
         }
 
         public string FromRouteValues(string action, string controller, object routeValues)
@@ -21,11 +23,15 @@ namespace Byte.Blog.Framework
             var uriBuilder = new UriBuilder();
 
             uriBuilder.Scheme = Uri.UriSchemeHttp;
-            uriBuilder.Host = this.request.Url.Host;
 
             if (MvcApplication.EnvironmentType == EnvironmentType.Development)
             {
-                uriBuilder.Port = this.request.Url.Port;
+                uriBuilder.Host = DevelopmentHostname;
+                uriBuilder.Port = DevelopmentPort;
+            }
+            else
+            {
+                uriBuilder.Host = ProductionHostname;
             }
 
             uriBuilder.Path = this.GetPath(action, controller, routeValues);;

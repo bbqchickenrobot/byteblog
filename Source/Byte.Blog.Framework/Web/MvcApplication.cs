@@ -38,7 +38,7 @@ namespace Byte.Blog.Framework.Web
         {
             get
             {
-                if (HttpContext.Current.IsDebuggingEnabled)
+                if (HttpContext.Current == null || HttpContext.Current.IsDebuggingEnabled)
                 {
                     return EnvironmentType.Development;
                 }

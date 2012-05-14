@@ -22,7 +22,7 @@ namespace Byte.Blog.Rendering.Controllers
 
             pages.Insert(0, Page.HomePage);
 
-            var mapper = new PageToPageViewModelMapper(this.session);
+            var mapper = new PageToPageViewModelMapper(this.session, this.Url);
             var pageViewModels = pages.Select(p => mapper.Map(p, false));
 
             return this.View(pageViewModels);

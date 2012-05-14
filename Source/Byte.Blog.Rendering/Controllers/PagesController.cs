@@ -21,7 +21,7 @@ namespace Byte.Blog.Rendering.Controllers
                 return new HttpNotFoundResult("No such page.");
             }
 
-            var pageToPageViewModelMapper = new PageToPageViewModelMapper(this.session);
+            var pageToPageViewModelMapper = new PageToPageViewModelMapper(this.session, this.Url);
             var pageViewModel = pageToPageViewModelMapper.Map(page);
 
             return this.View(pageViewModel);

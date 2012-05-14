@@ -1,4 +1,4 @@
-﻿using System.Web;
+﻿using System.Web.Mvc;
 using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Framework;
@@ -10,10 +10,14 @@ namespace Byte.Blog.Rendering.Models
     public class EntryToEntryViewModelMapper
     {
         private readonly IDocumentSession session;
+        private readonly UrlHelper urlHelper;
 
-        public EntryToEntryViewModelMapper(IDocumentSession session)
+        public EntryToEntryViewModelMapper(
+            IDocumentSession session,
+            UrlHelper urlHelper)
         {
             this.session = session;
+            this.urlHelper = urlHelper;
         }
 
         public EntryViewModel Map(Entry entry)
@@ -24,7 +28,9 @@ namespace Byte.Blog.Rendering.Models
 
             PopulatePageDetails(entryViewModel, pageViewModel);
             PopulateBody(entryViewModel);
-            PopulateCanonicalUrl(entryViewModel);
+            
+            this.PopulateCanonicalUrl(entryViewModel);
+
             PopulateDisqusThread(entryViewModel, pageViewModel);
 
             return entryViewModel;
@@ -32,7 +38,7 @@ namespace Byte.Blog.Rendering.Models
 
         private PageViewModel GetPageViewModel(string pageId)
         {
-            var pageToPageViewModelMapper = new PageToPageViewModelMapper(this.session);
+            var pageToPageViewModelMapper = new PageToPageViewModelMapper(this.session, this.urlHelper);
 
             if (string.IsNullOrEmpty(pageId))
             {
@@ -60,9 +66,9 @@ namespace Byte.Blog.Rendering.Models
             entryViewModel.Body = markdown.Transform(entryViewModel.Body);
         }
 
-        private static void PopulateCanonicalUrl(EntryViewModel entryViewModel)
+        private void PopulateCanonicalUrl(EntryViewModel entryViewModel)
         {
-            var canonicalUrlGenerator = new CanonicalUrlGenerator(HttpContext.Current.Request);
+            var canonicalUrlGenerator = new CanonicalUrlGenerator(this.urlHelper);
 
             entryViewModel.CanonicalUrl = canonicalUrlGenerator.FromRouteValues(
                 "viewentry",

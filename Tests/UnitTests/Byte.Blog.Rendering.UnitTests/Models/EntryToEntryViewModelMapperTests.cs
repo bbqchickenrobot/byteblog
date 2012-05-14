@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Framework.UnitTests;
+using Byte.Blog.Framework.UnitTests.Web;
 using Byte.Blog.Rendering.Models;
 using Xunit;
 
@@ -27,7 +28,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(title, entryViewModel.Title);
@@ -51,7 +54,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(true, entryViewModel.Deleted);
@@ -77,7 +82,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(id, entryViewModel.Id);
@@ -103,7 +110,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(lastModifiedAtUtc, entryViewModel.LastModifiedAtUtc);
@@ -129,7 +138,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(pageId, entryViewModel.PageId);
@@ -153,7 +164,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(true, entryViewModel.Published);
@@ -179,7 +192,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(publishedAtUtc, entryViewModel.PublishedAtUtc);
@@ -205,7 +220,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(references, entryViewModel.References);
@@ -231,7 +248,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(slug, entryViewModel.Slug);
@@ -257,7 +276,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var entryToEntryViewModelMapper = new EntryToEntryViewModelMapper(session, urlHelper);
                 var entryViewModel = entryToEntryViewModelMapper.Map(entry);
 
                 Assert.Equal(tags, entryViewModel.Tags);

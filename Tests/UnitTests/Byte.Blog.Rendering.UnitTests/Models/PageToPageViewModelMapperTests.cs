@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Framework.UnitTests;
+using Byte.Blog.Framework.UnitTests.Web;
 using Byte.Blog.Rendering.Models;
 using Xunit;
 
@@ -25,7 +26,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
 
                 Assert.Equal(title, pageViewModel.Title);
@@ -51,7 +54,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
 
                 Assert.Equal(slug, pageViewModel.Slug);
@@ -77,7 +82,9 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session);
+                var urlHelper = TestableUrlHelper.Create();
+
+                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
                 var pageViewModel = pageToPageViewModelMapper.Map(page);
 
                 Assert.Equal(color, pageViewModel.HtmlColor);
