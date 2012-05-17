@@ -1,5 +1,6 @@
 ﻿using Byte.Blog.Content;
 using Byte.Blog.Framework.UnitTests;
+using Raven.Client;
 using Xunit;
 
 namespace Byte.Blog.Rendering.UnitTests
@@ -24,12 +25,8 @@ namespace Byte.Blog.Rendering.UnitTests
             {
                 session.Store(page);
                 session.SaveChanges();
-            }
 
-            using (var session = store.OpenSession())
-            {
-                var pageFactory = new PageFactory(session);
-                var pageLoaded = pageFactory.CreateFromSlug(slug);
+                var pageLoaded = GetPageForSlug(session, slug);
 
                 Assert.Null(pageLoaded);
             }
@@ -52,15 +49,17 @@ namespace Byte.Blog.Rendering.UnitTests
             {
                 session.Store(page);
                 session.SaveChanges();
-            }
 
-            using (var session = store.OpenSession())
-            {
-                var pageFactory = new PageFactory(session);
-                var pageLoaded = pageFactory.CreateFromSlug(slug);
+                var pageLoaded = GetPageForSlug(session, slug);
 
                 Assert.Equal(page.Id, pageLoaded.Id);
             }
+        }
+
+        private static Page GetPageForSlug(IDocumentSession session, string slug)
+        {
+            var pageFactory = new PageFactory(session);
+            return pageFactory.CreateFromSlug(slug);
         }
     }
 }

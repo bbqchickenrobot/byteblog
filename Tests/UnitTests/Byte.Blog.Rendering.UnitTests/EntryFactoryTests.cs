@@ -22,11 +22,15 @@ namespace Byte.Blog.Rendering.UnitTests
                 Published = true
             };
 
-            this.StoreEntry(testableStore, testEntry);
+            using (var session = testableStore.OpenSession())
+            {
+                session.Store(testEntry);
+                session.SaveChanges();
 
-            var entryReturned = this.GetEntryUsingFactory(testableStore, slug);
+                var entryReturned = GetEntryUsingFactory(session, slug);
 
-            Assert.Equal(title, entryReturned.Title);
+                Assert.Equal(title, entryReturned.Title);
+            }
         }
 
         [Fact]
@@ -42,11 +46,15 @@ namespace Byte.Blog.Rendering.UnitTests
                 Published = false
             };
 
-            this.StoreEntry(testableStore, testEntry);
+            using (var session = testableStore.OpenSession())
+            {
+                session.Store(testEntry);
+                session.SaveChanges();
 
-            var entryReturned = this.GetEntryUsingFactory(testableStore, slug);
+                var entryReturned = GetEntryUsingFactory(session, slug);
 
-            Assert.Null(entryReturned);
+                Assert.Null(entryReturned);
+            }
         }
 
         [Fact]
@@ -63,11 +71,15 @@ namespace Byte.Blog.Rendering.UnitTests
                 Deleted = true
             };
 
-            this.StoreEntry(testableStore, testEntry);
+            using (var session = testableStore.OpenSession())
+            {
+                session.Store(testEntry);
+                session.SaveChanges();
 
-            var entryReturned = this.GetEntryUsingFactory(testableStore, slug);
+                var entryReturned = GetEntryUsingFactory(session, slug);
 
-            Assert.Null(entryReturned);
+                Assert.Null(entryReturned);
+            }
         }
 
         [Fact]
@@ -84,22 +96,10 @@ namespace Byte.Blog.Rendering.UnitTests
             }
         }
 
-        private void StoreEntry(IDocumentStore store, Entry entry)
+        private static Entry GetEntryUsingFactory(IDocumentSession session, string slug)
         {
-            using (var session = store.OpenSession())
-            {
-                session.Store(entry);
-                session.SaveChanges();
-            }
-        }
-
-        private Entry GetEntryUsingFactory(IDocumentStore store, string slug)
-        {
-            using (var session = store.OpenSession())
-            {
-                var entryFactory = new EntryFactory(session);
-                return entryFactory.CreateFromSlug(slug);
-            }
+            var entryFactory = new EntryFactory(session);
+            return entryFactory.CreateFromSlug(slug);
         }
     }
 }

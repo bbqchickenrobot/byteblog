@@ -22,13 +22,12 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
 
             int pagesCount = 2;
 
-            var pages = GetTestPages(pagesCount);
-            SaveTestPages(store, pages);
-
             using (var navigationController = new NavigationController(store))
             {
                 using (var session = store.OpenSession())
                 {
+                    PersistTestPages(session, pagesCount);
+
                     RavenControllerTestHelper.SetSessionOnController(navigationController, session);
 
                     var actionResult = navigationController.Menu();
@@ -52,26 +51,31 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
 
             int pagesCount = 2;
 
-            var pages = GetTestPages(pagesCount);
-            SaveTestPages(store, pages);
-
             using (var navigationController = new NavigationController(store))
             {
                 using (var session = store.OpenSession())
                 {
+                    PersistTestPages(session, pagesCount);
+
                     RavenControllerTestHelper.SetSessionOnController(navigationController, session);
                     
                     var actionResult = navigationController.Menu();
                     var pageViewModels = ControllerTestHelper.GetModelInActionResult<IEnumerable<PageViewModel>>(actionResult);
 
-                    foreach (var page in pages)
+                    for (int i = 0; i < pagesCount; i++)
                     {
-                        Assert.True(pageViewModels.Any(vm => vm.Id == page.Id));
+                        Assert.True(pageViewModels.Any(vm => vm.Id == Page.IdPrefix + i));
                     }
                 }
             }
 
             Mapper.Reset();
+        }
+
+        private static void PersistTestPages(IDocumentSession session, int numberOfPages)
+        {
+            var entries = GetTestPages(numberOfPages);
+            SaveTestPages(session, entries);
         }
 
         private static IEnumerable<Page> GetTestPages(int number)
@@ -85,16 +89,13 @@ namespace Byte.Blog.Rendering.UnitTests.Controllers
                     });
         }
 
-        private static void SaveTestPages(IDocumentStore store, IEnumerable<Page> pages)
+        private static void SaveTestPages(IDocumentSession session, IEnumerable<Page> pages)
         {
-            using (var session = store.OpenSession())
+            foreach (var page in pages)
             {
-                foreach (var page in pages)
-                {
-                    session.Store(page);
-                }
-                session.SaveChanges();
+                session.Store(page);
             }
+            session.SaveChanges();
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 {
     public class PagesDashboardControllerTests
     {
+        private const int DefaultQueryModelPageSize = 20;
+
         [Fact]
         public void Dashboard_fetch_crafts_viewmodels_from_database()
         {
@@ -23,30 +25,31 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             int pagesCount = 2;
 
-            var pages = GetTestPages(pagesCount);
-            SaveTestPages(store, pages);
-
             using (var pagesDashboardController = new PagesDashboardController(store))
             {
                 using (var session = store.OpenSession())
                 {
+                    PersistTestPages(session, pagesCount);
+
                     RavenControllerTestHelper.SetSessionOnController(pagesDashboardController, session);
 
-                    var queryModel = new PageDashboardQueryModel
-                    {
-                        PageNumber = 1,
-                        PageSize = 20
-                    };
+                    var queryModel = GetDefaultQueryModel();
 
                     var actionResult = pagesDashboardController.Fetch(queryModel);
                     var pageEditModels = GetPageEditModelsFromResult(actionResult);
 
-                    foreach (var page in pages)
+                    for (int i = 0; i < pagesCount; i++)
                     {
-                        Assert.True(pageEditModels.Any(editModel => editModel.Id == page.Id));
+                        Assert.True(pageEditModels.Any(editModel => editModel.Id == Page.IdPrefix + i));
                     }
                 }
             }
+        }
+
+        private static void PersistTestPages(IDocumentSession session, int numberOfPages)
+        {
+            var entries = GetTestPages(numberOfPages);
+            SaveTestPages(session, entries);
         }
 
         private static IEnumerable<Page> GetTestPages(int number)
@@ -60,16 +63,22 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                     });
         }
 
-        private static void SaveTestPages(IDocumentStore store, IEnumerable<Page> pages)
+        private static void SaveTestPages(IDocumentSession session, IEnumerable<Page> pages)
         {
-            using (var session = store.OpenSession())
+            foreach (var page in pages)
             {
-                foreach (var page in pages)
-                {
-                    session.Store(page);
-                }
-                session.SaveChanges();
+                session.Store(page);
             }
+            session.SaveChanges();
+        }
+
+        private static PageDashboardQueryModel GetDefaultQueryModel()
+        {
+            return new PageDashboardQueryModel
+            {
+                PageNumber = 1,
+                PageSize = DefaultQueryModelPageSize
+            };
         }
 
         private static IEnumerable<PageEditModel> GetPageEditModelsFromResult(ActionResult actionResult)

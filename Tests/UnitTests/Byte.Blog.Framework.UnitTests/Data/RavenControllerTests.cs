@@ -38,18 +38,15 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             var store = new TestableStore();
 
-            using (var session = store.OpenSession())
-            {
-                session.Store(testDocument);
-                session.SaveChanges();
-            }
-
             var controller = new TestableController(store);
 
             StartActionExecuting(controller);
 
             using (var session = controller.Session)
             {
+                session.Store(testDocument);
+                session.SaveChanges();
+
                 var doc = session.Load<Foo>(testDocument.Id);
                 doc.Title = "bar";
 
@@ -70,18 +67,15 @@ namespace Byte.Blog.Framework.UnitTests.Data
 
             var store = new TestableStore();
 
-            using (var session = store.OpenSession())
-            {
-                session.Store(testDocument);
-                session.SaveChanges();
-            }
-
             var controller = new TestableController(store);
 
             StartActionExecuting(controller);
 
             using (var session = controller.Session)
             {
+                session.Store(testDocument);
+                session.SaveChanges();
+
                 var doc = session.Load<Foo>(testDocument.Id);
                 doc.Title = "bar";
 

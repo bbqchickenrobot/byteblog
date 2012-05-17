@@ -3,6 +3,7 @@ using Byte.Blog.Content;
 using Byte.Blog.Framework.UnitTests;
 using Byte.Blog.Framework.UnitTests.Web;
 using Byte.Blog.Rendering.Models;
+using Raven.Client;
 using Xunit;
 
 namespace Byte.Blog.Rendering.UnitTests.Models
@@ -26,11 +27,7 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var testableUrlHelperFactory = new TestableUrlHelperFactory();
-                var urlHelper = testableUrlHelperFactory.Create();
-
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
-                var pageViewModel = pageToPageViewModelMapper.Map(page);
+                var pageViewModel = GetMappedPageViewModel(session, page);
 
                 Assert.Equal(title, pageViewModel.Title);
             }
@@ -55,11 +52,7 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var testableUrlHelperFactory = new TestableUrlHelperFactory();
-                var urlHelper = testableUrlHelperFactory.Create();
-
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
-                var pageViewModel = pageToPageViewModelMapper.Map(page);
+                var pageViewModel = GetMappedPageViewModel(session, page);
 
                 Assert.Equal(slug, pageViewModel.Slug);
             }
@@ -84,16 +77,21 @@ namespace Byte.Blog.Rendering.UnitTests.Models
 
             using (var session = store.OpenSession())
             {
-                var testableUrlHelperFactory = new TestableUrlHelperFactory();
-                var urlHelper = testableUrlHelperFactory.Create();
-
-                var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
-                var pageViewModel = pageToPageViewModelMapper.Map(page);
+                var pageViewModel = GetMappedPageViewModel(session, page);
 
                 Assert.Equal(color, pageViewModel.HtmlColor);
             }
 
             Mapper.Reset();
+        }
+
+        private static PageViewModel GetMappedPageViewModel(IDocumentSession session, Page page)
+        {
+            var testableUrlHelperFactory = new TestableUrlHelperFactory();
+            var urlHelper = testableUrlHelperFactory.Create();
+
+            var pageToPageViewModelMapper = new PageToPageViewModelMapper(session, urlHelper);
+            return pageToPageViewModelMapper.Map(page);
         }
     }
 }
