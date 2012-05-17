@@ -24,6 +24,11 @@ namespace Byte.Blog.Framework
 
         public string CreateSlug(string input)
         {
+            if (string.IsNullOrEmpty(input))
+            {
+                return string.Empty;
+            }
+
             input = input.ToLower();
             input = Blacklist.Replace(input, "");
             input = MultipleWhitespace.Replace(input, " ");
