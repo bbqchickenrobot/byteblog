@@ -13,6 +13,8 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 {
     public class EntriesDashboardControllerTests
     {
+        private const int DefaultQueryModelPageSize = 20;
+
         [Fact]
         public void Dashboard_fetch_crafts_viewmodels_from_database()
         {
@@ -23,27 +25,22 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             int entryCount = 2;
 
-            var entries = GetTestEntries(entryCount);
-            SaveTestEntries(store, entries);
-
             using (var entriesDashboardController = new EntriesDashboardController(store))
             {
                 using (var session = store.OpenSession())
                 {
+                    PersistTestEntries(session, entryCount);
+
                     RavenControllerTestHelper.SetSessionOnController(entriesDashboardController, session);
 
-                    var queryModel = new EntryDashboardQueryModel
-                    {
-                        PageNumber = 1,
-                        PageSize = 20
-                    };
+                    var queryModel = GetDefaultQueryModel();
 
                     var actionResult = entriesDashboardController.Fetch(queryModel);
                     var entryEditModels = GetEntryEditModelsFromResult(actionResult);
 
-                    foreach (var entry in entries)
+                    for(int i = 0; i < entryCount; i++)
                     {
-                        Assert.True(entryEditModels.Any(editModel => editModel.Id == entry.Id));
+                        Assert.True(entryEditModels.Any(editModel => editModel.Id == Entry.IdPrefix + i));
                     }
                 }
             }
@@ -59,20 +56,15 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
 
             int entryCount = 30;
 
-            var entries = GetTestEntries(entryCount);
-            SaveTestEntries(store, entries);
-
             using (var entriesDashboardController = new EntriesDashboardController(store))
             {
                 using (var session = store.OpenSession())
                 {
+                    PersistTestEntries(session, entryCount);
+
                     RavenControllerTestHelper.SetSessionOnController(entriesDashboardController, session);
 
-                    var queryModel = new EntryDashboardQueryModel
-                    {
-                        PageNumber = 1,
-                        PageSize = 20
-                    };
+                    var queryModel = GetDefaultQueryModel();
 
                     var actionResult = entriesDashboardController.Fetch(queryModel);
                     var entryEditModels = GetEntryEditModelsFromResult(actionResult);
@@ -80,6 +72,12 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                     Assert.Equal(queryModel.PageSize, entryEditModels.Count());
                 }
             }
+        }
+
+        private static void PersistTestEntries(IDocumentSession session, int numberOfEntries)
+        {
+            var entries = GetTestEntries(numberOfEntries);
+            SaveTestEntries(session, entries);
         }
 
         private static IEnumerable<Entry> GetTestEntries(int number)
@@ -93,16 +91,22 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                     });
         }
 
-        private static void SaveTestEntries(IDocumentStore store, IEnumerable<Entry> entries)
+        private static void SaveTestEntries(IDocumentSession session, IEnumerable<Entry> entries)
         {
-            using (var session = store.OpenSession())
+            foreach (var entry in entries)
             {
-                foreach (var entry in entries)
-                {
-                    session.Store(entry);
-                }
-                session.SaveChanges();
+                session.Store(entry);
             }
+            session.SaveChanges();
+        }
+
+        private static EntryDashboardQueryModel GetDefaultQueryModel()
+        {
+            return new EntryDashboardQueryModel
+            {
+                PageNumber = 1,
+                PageSize = DefaultQueryModelPageSize
+            };
         }
 
         private static IEnumerable<EntryEditModel> GetEntryEditModelsFromResult(ActionResult actionResult)
