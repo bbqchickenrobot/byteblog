@@ -121,6 +121,7 @@
     <Compile Include="Controllers\EntriesDashboardControllerTests.cs" />
     <Compile Include="Controllers\PagesControllerTests.cs" />
     <Compile Include="Controllers\PagesDashboardControllerTests.cs" />
+    <Compile Include="Models\EntryEditModelToEntryMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,9 +145,7 @@
       <Name>Byte.Blog.Framework.UnitTests</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
