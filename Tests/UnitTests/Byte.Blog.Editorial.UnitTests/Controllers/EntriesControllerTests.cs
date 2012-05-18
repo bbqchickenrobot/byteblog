@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Editorial.Controllers;
 using Byte.Blog.Editorial.Models;
@@ -15,8 +16,6 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
             Mapper.Reset();
             AutoMapperConfig.RegisterMappings();
 
-            string id = "foo/123";
-
             var store = new TestableStore();
 
             using (var entriesController = new EntriesController(store))
@@ -24,11 +23,14 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
                 using (var session = store.OpenSession())
                 {
                     RavenControllerTestHelper.SetSessionOnController(entriesController, session);
-                    entriesController.Save(new EntryEditModel() { Id = id, Title = "foo" });
+                    entriesController.Save(new EntryEditModel() { Title = "foo" });
+
+                    var savedEntry = session.Query<Entry>()
+                        .FirstOrDefault(e => e.Title == "foo");
+
+                    Assert.NotNull(savedEntry);
                 }
             }
-
-            Assert.True(store.Contains(id));
 
             Mapper.Reset();
         }

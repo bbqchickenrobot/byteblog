@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoMapper;
+using System.Collections.ObjectModel;
 using Byte.Blog.Content;
 using Byte.Blog.Framework;
 using Raven.Client;
@@ -15,72 +15,36 @@ namespace Byte.Blog.Editorial.Models
             this.session = session;
         }
 
-        public Entry Map(EntryEditModel editModel)
+        public void Map(Entry entry, EntryEditModel entryEditModel)
         {
-            var newEntry = Mapper.Map<Entry>(editModel);
-            var existingEntry = this.GetExistingEntry(newEntry.Id);
-
-            SetSlug(existingEntry, newEntry);
-
-            this.UpdateTimestamps(existingEntry, newEntry);
-
-            return newEntry;
+            MapBasicProperties(entry, entryEditModel);
+            SetSlug(entry);
+            UpdateTimestamps(entry, entryEditModel);
         }
 
-        private Entry GetExistingEntry(string id)
+        private void MapBasicProperties(Entry entry, EntryEditModel editModel)
         {
-            if (string.IsNullOrEmpty(id) || id == Entry.IdPrefix)
-            {
-                return null;
-            }
-
-            return this.session.Load<Entry>(id);
+            entry.Body = editModel.Body;
+            entry.Deleted = editModel.Deleted;
+            entry.PageId = editModel.PageId;
+            entry.Published = editModel.Published;
+            entry.Tags = new Collection<string>(editModel.Tags);
+            entry.Title = editModel.Title;
         }
 
-        private static void SetSlug(Entry existingEntry, Entry newEntry)
+        private static void SetSlug(Entry entry)
         {
-            if (existingEntry == null)
+            if (string.IsNullOrEmpty(entry.Slug))
             {
                 var slugMaker = new SlugMaker();
-                newEntry.Slug = slugMaker.CreateSlug(newEntry.Title);
-            }
-            else
-            {
-                newEntry.Slug = existingEntry.Slug;
+                entry.Slug = slugMaker.CreateSlug(entry.Title);
             }
         }
 
-        private void UpdateTimestamps(Entry existingEntry, Entry newEntry)
-        {
-            UpdateLastModifiedAtUtc(newEntry);
-            UpdatePublishedAtUtc(existingEntry, newEntry);
-        }
-
-        private static void UpdateLastModifiedAtUtc(Entry entry)
+        private static void UpdateTimestamps(Entry entry, EntryEditModel entryEditModel)
         {
             entry.LastModifiedAtUtc = DateTimeOffset.UtcNow;
-        }
-
-        private static void UpdatePublishedAtUtc(Entry existingEntry, Entry newEntry)
-        {
-            if (IsBecomingPublished(existingEntry, newEntry))
-            {
-                newEntry.PublishedAtUtc = DateTimeOffset.UtcNow;
-            }
-            else if (existingEntry != null)
-            {
-                newEntry.PublishedAtUtc = existingEntry.PublishedAtUtc;
-            }
-        }
-
-        private static bool IsBecomingPublished(Entry existingEntry, Entry newEntry)
-        {
-            if (newEntry.Published && (existingEntry == null || !existingEntry.Published))
-            {
-                return true;
-            }
-
-            return false;
+            entry.PublishedAtUtc = entryEditModel.PublishedAtUtc;
         }
     }
 }

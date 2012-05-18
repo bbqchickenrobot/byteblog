@@ -10,7 +10,7 @@
     </a>
 </td>
 <td><%= DateUtility.getDateTimeParts(@Html.IdFor(m => m.PublishedAtUtc)).combined %></td>
-<td><%= DateUtility.getDateTimeParts(@Html.IdFor(m => m.LastModifiedAtUtc)).combined %></td>
+<td><% if(@Html.IdFor(m => m.Published)) { %><span>Published</span><% } else { %><span class="dark-red-text">Draft</span><% } %></td>
 <td><span class="label" style="background-color: <%= @Html.IdFor(m => m.PageColor) %>"><%= @Html.IdFor(m => m.PageTitle) %></span></td>
 <td><% _.each(@Html.IdFor(m => m.Tags), function(tag) { %><span class="label label-info"><%= tag %></span> <% }); %></td>
 

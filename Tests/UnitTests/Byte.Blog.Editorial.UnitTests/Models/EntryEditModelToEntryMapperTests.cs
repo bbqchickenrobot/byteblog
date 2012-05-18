@@ -3,7 +3,6 @@ using AutoMapper;
 using Byte.Blog.Content;
 using Byte.Blog.Editorial.Models;
 using Byte.Blog.Framework.UnitTests;
-using Raven.Client;
 using Xunit;
 
 namespace Byte.Blog.Editorial.UnitTests.Models
@@ -25,7 +24,10 @@ namespace Byte.Blog.Editorial.UnitTests.Models
 
             using (var session = testableStore.OpenSession())
             {
-                var entry = GetMappedEntryFor(session, entryEditModel);
+                var entry = new Entry();
+
+                var entryEditModelToEntryMapper = new EntryEditModelToEntryMapper(session);
+                entryEditModelToEntryMapper.Map(entry, entryEditModel);
 
                 Assert.Equal(expectedSlug, entry.Slug);
             }
@@ -57,9 +59,10 @@ namespace Byte.Blog.Editorial.UnitTests.Models
                     Title = "Bar Title"
                 };
 
-                var entryMapped = GetMappedEntryFor(session, entryEditModel);
+                var entryEditModelToEntryMapper = new EntryEditModelToEntryMapper(session);
+                entryEditModelToEntryMapper.Map(entry, entryEditModel);
 
-                Assert.Equal(entry.Slug, entryMapped.Slug);
+                Assert.Equal(entry.Slug, entry.Slug);
             }
 
             Mapper.Reset();
@@ -80,7 +83,10 @@ namespace Byte.Blog.Editorial.UnitTests.Models
 
             using (var session = testableStore.OpenSession())
             {
-                var entry = GetMappedEntryFor(session, entryEditModel);
+                var entry = new Entry();
+
+                var entryEditModelToEntryMapper = new EntryEditModelToEntryMapper(session);
+                entryEditModelToEntryMapper.Map(entry, entryEditModel);
 
                 Assert.NotEqual(entryEditModel.LastModifiedAtUtc, entry.LastModifiedAtUtc);
             }
@@ -89,99 +95,31 @@ namespace Byte.Blog.Editorial.UnitTests.Models
         }
 
         [Fact]
-        public void Existing_entry_already_published_leaves_published_date_unchanged()
+        public void Published_date_maps()
         {
             Mapper.Reset();
             AutoMapperConfig.RegisterMappings();
 
             var testableStore = new TestableStore();
 
-            var entry = new Entry
-            {
-                PublishedAtUtc = DateTimeOffset.UtcNow.AddDays(-1)
-            };
+            var pubDate = DateTimeOffset.MinValue;
 
             using (var session = testableStore.OpenSession())
             {
-                session.Store(entry);
-                session.SaveChanges();
-
                 var entryEditModel = new EntryEditModel
                 {
-                    Id = entry.Id,
-                    PublishedAtUtc = DateTimeOffset.UtcNow
+                    PublishedAtUtc = pubDate
                 };
 
-                var entryMapped = GetMappedEntryFor(session, entryEditModel);
+                var entry = new Entry();
 
-                Assert.Equal(entry.PublishedAtUtc, entryMapped.PublishedAtUtc);
+                var entryEditModelToEntryMapper = new EntryEditModelToEntryMapper(session);
+                entryEditModelToEntryMapper.Map(entry, entryEditModel);
+
+                Assert.Equal(pubDate, entry.PublishedAtUtc);
             }
 
             Mapper.Reset();
-        }
-
-        [Fact]
-        public void Existing_entry_not_published_until_now_updates_published_date()
-        {
-            Mapper.Reset();
-            AutoMapperConfig.RegisterMappings();
-
-            var testableStore = new TestableStore();
-
-            var entry = new Entry();
-
-            using (var session = testableStore.OpenSession())
-            {
-                session.Store(entry);
-                session.SaveChanges();
-
-                var entryEditModel = new EntryEditModel
-                {
-                    Id = entry.Id,
-                    Published = true
-                };
-
-                var entryMapped = GetMappedEntryFor(session, entryEditModel);
-
-                Assert.NotEqual(entry.PublishedAtUtc, entryMapped.PublishedAtUtc);
-            }
-
-            Mapper.Reset();
-        }
-
-        [Fact]
-        public void New_unpublished_entry_leaves_published_date_unchanged()
-        {
-            Mapper.Reset();
-            AutoMapperConfig.RegisterMappings();
-
-            var testableStore = new TestableStore();
-
-            var entry = new Entry();
-
-            using (var session = testableStore.OpenSession())
-            {
-                session.Store(entry);
-                session.SaveChanges();
-
-                var entryEditModel = new EntryEditModel
-                {
-                    Id = entry.Id
-                };
-
-                var entryMapped = GetMappedEntryFor(session, entryEditModel);
-
-                Assert.Equal(entry.PublishedAtUtc, entryMapped.PublishedAtUtc);
-            }
-
-            Mapper.Reset();
-        }
-
-        private static Entry GetMappedEntryFor(IDocumentSession session, EntryEditModel entryEditModel)
-        {
-            var entryEditModelToEntryMapper = new EntryEditModelToEntryMapper(session);
-
-            return entryEditModelToEntryMapper.Map(entryEditModel);
         }
     }
 }

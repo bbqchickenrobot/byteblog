@@ -41,6 +41,7 @@ namespace Byte.Blog.Editorial.Controllers
             var mapper = new EntryToEntryEditModelMapper(this.session);
 
             var entryEditModels = this.session.Query<Entry>()
+                .OrderByDescending(e => e.PublishedAtUtc)
                 .Skip((queryModel.PageNumber - 1) * queryModel.PageSize)
                 .Take(queryModel.PageSize)
                 .ToList()

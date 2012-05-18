@@ -52,13 +52,49 @@ namespace Byte.Blog.Editorial.Controllers
                 return this.Json(new { error = true });
             }
 
-            var mapper = new EntryEditModelToEntryMapper(this.session);
-            var entry = mapper.Map(editModel);
+            var isNewEntry = IsNewEntry(editModel);
 
-            this.session.Store(entry);
+            Entry entry;
+
+            if (isNewEntry)
+            {
+                entry = new Entry();
+            }
+            else
+            {
+                entry = this.session.Load<Entry>(editModel.Id);
+                if (entry == null)
+                {
+                    return this.Json(new { error = true });
+                }
+            }
+
+            this.MapEntry(entry, editModel);
+
+            if (isNewEntry)
+            {
+                this.session.Store(entry);
+            }
+
             this.session.SaveChanges();
 
             return this.Json(entry);
+        }
+
+        private static bool IsNewEntry(EntryEditModel editModel)
+        {
+            if (string.IsNullOrEmpty(editModel.Id))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private void MapEntry(Entry entry, EntryEditModel editModel)
+        {
+            var mapper = new EntryEditModelToEntryMapper(this.session);
+            mapper.Map(entry, editModel);
         }
 
         //TODO: 'REST' 'DELETE' ?
