@@ -38,16 +38,21 @@ namespace Byte.Blog.Editorial.Controllers
 
         public ActionResult Fetch(EntryDashboardQueryModel queryModel)
         {
-            var mapper = new EntryToEntryEditModelMapper(this.session);
-
             var entryEditModels = this.session.Query<Entry>()
+                .Where(e => !e.Deleted)
                 .OrderByDescending(e => e.PublishedAtUtc)
                 .Skip((queryModel.PageNumber - 1) * queryModel.PageSize)
                 .Take(queryModel.PageSize)
                 .ToList()
-                .Select(mapper.Map);
+                .Select(this.CreateEntryEditModel);
 
             return this.Json(entryEditModels, JsonRequestBehavior.AllowGet);
+        }
+
+        private EntryEditModel CreateEntryEditModel(Entry entry)
+        {
+            var mapper = new EntryToEntryEditModelMapper(this.session);
+            return mapper.Map(entry);
         }
     }
 }

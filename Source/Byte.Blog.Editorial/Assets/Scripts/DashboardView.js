@@ -74,15 +74,48 @@
             var self = this;
 
             this.dashboardItems.each(function (item) {
-                $(self.el).find('.dashboard-table').append(new window.DashboardItemView({
+
+                var newItem = new window.DashboardItemView({
                     model: item,
                     template: self.itemTemplate
-                }).render().el);
+                }).render();
+
+                $(self.el).find('.dashboard-table').append(newItem.el);
+
+                newItem.bind('dashboarditem:delete', function (e) {
+                    self.onDashboardItemDeletedEvent.call(self, e);
+                });
+
             });
 
             this.paginationView.render();
 
             return this;
+        },
+
+        onDashboardItemDeletedEvent: function (e) {
+
+            var actionMessageText = '';
+            var actionMessageTextAccentClass = '';
+
+            if (e && e.success) {
+                actionMessageText = 'Deleted \'' + e.data.Title + '\'!';
+                actionMessageTextAccentClass = 'alert-success';
+                var pageSize = $('#PageSize').val();
+                this.fetch(1, pageSize);
+            } else {
+                actionMessageText = 'Failed to delete entry!';
+                actionMessageTextAccentClass = 'alert-error';
+            }
+
+            $('#action-message')
+                .removeClass('alert-success alert-error')
+                .addClass(actionMessageTextAccentClass)
+                .fadeIn()
+                .removeClass('hide')
+                .text(actionMessageText)
+                .delay(4000)
+                .fadeOut();
         }
     });
 

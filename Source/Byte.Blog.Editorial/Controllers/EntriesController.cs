@@ -20,8 +20,7 @@ namespace Byte.Blog.Editorial.Controllers
         {
             var entry = new Entry();
 
-            var mapper = new EntryToEntryEditModelMapper(this.session);
-            var entryEditModel = mapper.Map(entry);
+            var entryEditModel = this.CreateEntryEditModel(entry);
 
             return this.View("Edit", entryEditModel);
         }
@@ -38,8 +37,7 @@ namespace Byte.Blog.Editorial.Controllers
                 return this.View(new EntryEditModel());
             }
 
-            var mapper = new EntryToEntryEditModelMapper(this.session);
-            var entryEditModel = mapper.Map(entry);
+            var entryEditModel = this.CreateEntryEditModel(entry);
 
             return this.View(entryEditModel);
         }
@@ -69,7 +67,7 @@ namespace Byte.Blog.Editorial.Controllers
                 }
             }
 
-            this.MapEntry(entry, editModel);
+            this.ApplyEntryEditModelToEntry(entry, editModel);
 
             if (isNewEntry)
             {
@@ -91,12 +89,6 @@ namespace Byte.Blog.Editorial.Controllers
             return false;
         }
 
-        private void MapEntry(Entry entry, EntryEditModel editModel)
-        {
-            var mapper = new EntryEditModelToEntryMapper(this.session);
-            mapper.Map(entry, editModel);
-        }
-
         //TODO: 'REST' 'DELETE' ?
         [HttpPost]
         public ActionResult Delete(string entryId)
@@ -108,7 +100,19 @@ namespace Byte.Blog.Editorial.Controllers
 
             this.session.SaveChanges();
 
-            return this.Json(new { });
+            return this.Json(entry);
+        }
+
+        private void ApplyEntryEditModelToEntry(Entry entry, EntryEditModel editModel)
+        {
+            var mapper = new EntryEditModelToEntryMapper(this.session);
+            mapper.Map(entry, editModel);
+        }
+
+        private EntryEditModel CreateEntryEditModel(Entry entry)
+        {
+            var mapper = new EntryToEntryEditModelMapper(this.session);
+            return mapper.Map(entry);
         }
     }
 }

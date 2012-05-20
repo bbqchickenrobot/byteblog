@@ -47,6 +47,34 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
         }
 
         [Fact]
+        public void Dashboard_fetch_does_not_return_deleted_entries()
+        {
+            Mapper.Reset();
+            AutoMapperConfig.RegisterMappings();
+
+            var store = new TestableStore();
+
+            int entryCount = 2;
+
+            using (var entriesDashboardController = new EntriesDashboardController(store))
+            {
+                using (var session = store.OpenSession())
+                {
+                    PersistTestEntries(session, entryCount, true);
+
+                    RavenControllerTestHelper.SetSessionOnController(entriesDashboardController, session);
+
+                    var queryModel = GetDefaultQueryModel();
+
+                    var actionResult = entriesDashboardController.Fetch(queryModel);
+                    var entryEditModels = GetEntryEditModelsFromResult(actionResult);
+
+                    Assert.Empty(entryEditModels);
+                }
+            }
+        }
+
+        [Fact]
         public void Dashboard_fetch_paginates_results()
         {
             Mapper.Reset();
@@ -74,20 +102,21 @@ namespace Byte.Blog.Editorial.UnitTests.Controllers
             }
         }
 
-        private static void PersistTestEntries(IDocumentSession session, int numberOfEntries)
+        private static void PersistTestEntries(IDocumentSession session, int numberOfEntries, bool deleted = false)
         {
-            var entries = GetTestEntries(numberOfEntries);
+            var entries = GetTestEntries(numberOfEntries, deleted);
             SaveTestEntries(session, entries);
         }
 
-        private static IEnumerable<Entry> GetTestEntries(int number)
+        private static IEnumerable<Entry> GetTestEntries(int number, bool deleted)
         {
             return Enumerable.Range(0, number)
                 .Select(n =>
                     new Entry
                     {
                         Id = "entries/" + n,
-                        Title = "entry " + n
+                        Title = "entry " + n,
+                        Deleted = deleted
                     });
         }
 
