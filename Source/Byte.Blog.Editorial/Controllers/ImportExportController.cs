@@ -6,6 +6,7 @@ using Raven.Client;
 
 namespace Byte.Blog.Editorial.Controllers
 {
+    [Authorize]
     public class ImportExportController : RavenController
     {
         public ImportExportController(IDocumentStore store)
