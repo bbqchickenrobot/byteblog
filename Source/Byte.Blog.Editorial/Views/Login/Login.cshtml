@@ -1,6 +1,10 @@
 ﻿@using Byte.Blog.Framework.Web
 @model global::Byte.Blog.Editorial.Models.LoginViewModel
 
+@{
+    Layout = "";
+}
+
 @Html.ValidationSummary()
 
 @using (Html.BeginForm("login", "login", FormMethod.Post, new { id = "loginform" }))
