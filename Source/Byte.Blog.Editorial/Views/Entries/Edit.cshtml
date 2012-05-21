@@ -67,6 +67,18 @@
                         @Html.HiddenFor(m => m.PublishedAtUtc, new { @class = "hidden-datetime" })
                     </div>
                 </div>
+                
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Tags, new { @class = "control-label" })
+                    <div class="controls">
+                        <select id="@Html.IdFor(m => m.Tags)" name="@Html.IdFor(m => m.Tags)" title="Tags..." multiple>
+                            @foreach (var tag in Model.Tags)
+                            {
+                                <option value="@tag" selected>@tag</option>
+                            }
+                        </select>
+                    </div>
+                </div>
 
                 <div class="control-group">
                     @Html.LabelFor(m => m.PageId, new { @class = "control-label" })
@@ -78,8 +90,6 @@
                                 <span class="label"  style="background-color: @possiblePage.HtmlColor">@possiblePage.Title</span>
                             </label>
                         }
-
-                        @*@Html.EditorFor(m => m.PageSelections)*@
                     </div>
                 </div>
                 
@@ -98,8 +108,9 @@
     <script src="@Url.Content("~/editorial/assets/scripts/lib/Markdown.Converter.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/editorial/assets/scripts/lib/Markdown.Sanitizer.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/editorial/assets/scripts/lib/Markdown.Editor.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/editorial/assets/scripts/lib/chosen.jquery.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/editorial/assets/scripts/lib/ajax-chosen.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/editorial/assets/scripts/DateTimePickerView.js")" type="text/javascript"></script>
-
     <script src="@Url.Content("~/editorial/assets/scripts/EntryFormView.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/editorial/assets/scripts/EntryFormRouter.js")" type="text/javascript"></script>
 
@@ -109,6 +120,7 @@
 
             var entryFormView = new window.EntryFormView({
                 saveUrl: '@Url.Action("save")',
+                tagQueryUrl: '@Url.Action("search", "tags")',
                 el: $('#entryform'),
                 modelId: '@Model.Id'
             });

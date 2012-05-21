@@ -96,6 +96,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
     <Compile Include="Controllers\PagesDashboardController.cs" />
+    <Compile Include="Controllers\TagsController.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PageEditModelToPageMapper.cs" />
     <Compile Include="Models\PageEditModel.cs" />
@@ -115,12 +116,15 @@
     <Compile Include="WordpressImporter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Images\chosen-sprite.png" />
     <Content Include="Assets\Images\glyphicons-halflings-white.png" />
     <Content Include="Assets\Images\glyphicons-halflings.png" />
     <Content Include="Assets\Images\wmd-buttons.png" />
     <Content Include="Assets\Scripts\ArrayUtility.js" />
     <Content Include="Assets\Scripts\EntryFormRouter.js" />
+    <Content Include="Assets\Scripts\lib\ajax-chosen.min.js" />
     <Content Include="Assets\Scripts\lib\ajaxupload.js" />
+    <Content Include="Assets\Scripts\lib\chosen.jquery.min.js" />
     <Content Include="Assets\Scripts\PageFormView.js" />
     <Content Include="Assets\Scripts\PageEditModel.js" />
     <Content Include="Assets\Scripts\DateTimePickerView.js" />
@@ -147,6 +151,7 @@
     <Content Include="Assets\Scripts\WordpressImportView.js" />
     <Content Include="Assets\Styles\bootstrap-responsive.min.css" />
     <Content Include="Assets\Styles\bootstrap.min.css" />
+    <Content Include="Assets\Styles\chosen.css" />
     <Content Include="Assets\Styles\datepicker.css" />
     <Content Include="Assets\Styles\editor.css" />
     <Content Include="Assets\Styles\markdown.css" />

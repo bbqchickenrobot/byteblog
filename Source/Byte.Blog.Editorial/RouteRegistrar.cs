@@ -19,6 +19,7 @@ namespace Byte.Blog.Editorial
             this.RegisterEntryRoutes();
             this.RegisterPageRoutes();
             this.RegisterImportExportRoutes();
+            this.RegisterTagRoutes();
         }
 
         private void RegisterLoginRoutes()
@@ -127,6 +128,15 @@ namespace Byte.Blog.Editorial
                 "Editorial-ImportExport-ImportWordpressXml",
                 "editorial/importexport/importwordpressxml",
                 new { controller = "ImportExport", action = "ImportWordpressXml" });
+        }
+
+        private void RegisterTagRoutes()
+        {
+            //editorial/tags/search
+            this.context.MapRoute(
+                "Editorial-Tags-Search",
+                "editorial/tags/search",
+                new { controller = "tags", action = "search", term = UrlParameter.Optional });
         }
     }
 }

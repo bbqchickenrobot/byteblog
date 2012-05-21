@@ -7,11 +7,13 @@
     },
 
     saveUrl: null,
+    tagQueryUrl: null,
     dateTimePicker: null,
 
     initialize: function (options) {
 
         this.saveUrl = options.saveUrl;
+        this.tagQueryUrl = options.tagQueryUrl;
 
         this.model = new window.EntryEditModel({
             Id: options.modelId
@@ -21,12 +23,16 @@
 
         this.initializeModel();
         this.initializeDateTimePicker();
+        this.initializeTagChooser();
         this.initializeButtons();
         this.render();
     },
 
     initializeModel: function () {
         var attrsFromForm = this.getModelAttributesFromForm();
+
+        console.log('attrsFromForm', attrsFromForm);
+
         this.model.set(attrsFromForm, { silent: true });
     },
 
@@ -35,6 +41,30 @@
         this.dateTimePicker = new window.DateTimePickerView({
             el: this.el,
             currentDateTime: this.model.get('PublishedAtUtc') || new Date()
+        });
+
+    },
+
+    initializeTagChooser: function () {
+
+        var tagsToPrepopulate = this.model.get('Tags');
+        console.log('tagsToPrepopulate', tagsToPrepopulate);
+
+        $('#Tags').ajaxChosen({
+            method: 'GET',
+            url: this.tagQueryUrl,
+            dataType: 'json'
+        }, function (data) {
+
+            console.log('data', data);
+
+            var terms = {};
+
+            $.each(data, function (i, val) {
+                terms[val] = val;
+            });
+
+            return terms;
         });
 
     },
@@ -143,8 +173,6 @@
     getModelAttributesFromForm: function () {
 
         var attrsFound = $(this.el).serializeObject();
-
-        console.log('attrsFound', attrsFound);
 
         //ASP.NET MVC inserts a hidden 'false' input for each checkbox.
         //Without it, the input name for the checkbox would not submit a 'false' value when unchecked.

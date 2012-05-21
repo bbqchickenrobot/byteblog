@@ -121,6 +121,7 @@
     <Compile Include="Controllers\EntriesDashboardControllerTests.cs" />
     <Compile Include="Controllers\PagesControllerTests.cs" />
     <Compile Include="Controllers\PagesDashboardControllerTests.cs" />
+    <Compile Include="Controllers\TagsControllerTests.cs" />
     <Compile Include="Models\EntryEditModelToEntryMapperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
