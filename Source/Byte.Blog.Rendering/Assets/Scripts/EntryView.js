@@ -17,7 +17,7 @@
 
     render: function () {
 
-        var publishedAtLocalStr = 
+        var publishedAtLocalStr =
             'Posted on ' +
             this.publishedAtUtc.toLocaleDateString() +
             ' ' +
@@ -26,7 +26,6 @@
         this.$el
             .find('.published-at-utc')
             .text(publishedAtLocalStr);
-
     }
 
 }, {

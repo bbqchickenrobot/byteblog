@@ -125,6 +125,7 @@
     <Content Include="Assets\Scripts\lib\ajax-chosen.min.js" />
     <Content Include="Assets\Scripts\lib\ajaxupload.js" />
     <Content Include="Assets\Scripts\lib\chosen.jquery.min.js" />
+    <Content Include="Assets\Scripts\lib\prettify.js" />
     <Content Include="Assets\Scripts\PageFormView.js" />
     <Content Include="Assets\Scripts\PageEditModel.js" />
     <Content Include="Assets\Scripts\DateTimePickerView.js" />
@@ -155,6 +156,7 @@
     <Content Include="Assets\Styles\datepicker.css" />
     <Content Include="Assets\Styles\editor.css" />
     <Content Include="Assets\Styles\markdown.css" />
+    <Content Include="Assets\Styles\prettify.css" />
     <Content Include="Assets\Styles\timePicker.css" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

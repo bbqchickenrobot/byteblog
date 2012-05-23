@@ -135,6 +135,17 @@
             var markdownEditor = new Markdown.Editor(markdownConverter);
             markdownEditor.run();
 
+            var codifyPage = function () {
+                $('pre').addClass('prettyprint linenums');
+                window.prettyPrint();
+            };
+
+            codifyPage();
+
+            markdownEditor.hooks.chain("onPreviewRefresh", function () {
+                codifyPage();
+            });
+
         });
 
     </script>
