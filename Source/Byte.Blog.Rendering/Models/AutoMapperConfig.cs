@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Byte.Blog.Content;
+using Byte.Blog.Rendering.Controllers;
 
 namespace Byte.Blog.Rendering.Models
 {
@@ -16,6 +17,8 @@ namespace Byte.Blog.Rendering.Models
                 .ForMember(pvm => pvm.PageNumber, opts => opts.Ignore())
                 .ForMember(pvm => pvm.DisqusShortname, opts => opts.Ignore())
                 .ForMember(pvm => pvm.Entries, opts => opts.Ignore());
+
+            Mapper.CreateMap<Widget, WidgetViewModel>();
 
             Mapper.AssertConfigurationIsValid();
         }

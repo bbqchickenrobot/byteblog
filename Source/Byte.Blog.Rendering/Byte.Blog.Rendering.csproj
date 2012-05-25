@@ -92,6 +92,10 @@
   <ItemGroup>
     <Compile Include="Controllers\EntriesController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\SidebarController.cs" />
+    <Compile Include="WidgetFactory.cs" />
+    <Compile Include="Models\WidgetViewModel.cs" />
+    <Compile Include="Models\SidebarViewModel.cs" />
     <Compile Include="EntryFactory.cs" />
     <Compile Include="Models\DisqusThreadViewModel.cs" />
     <Compile Include="PageFactory.cs" />
@@ -126,6 +130,8 @@
     <None Include="Views\Entries\ViewEntry.cshtml" />
     <None Include="Views\shared\Disqus.cshtml" />
     <None Include="Views\shared\Entry.cshtml" />
+    <None Include="Views\Sidebar\Sidebar.cshtml" />
+    <None Include="Views\Sidebar\Widget.cshtml" />
     <None Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>

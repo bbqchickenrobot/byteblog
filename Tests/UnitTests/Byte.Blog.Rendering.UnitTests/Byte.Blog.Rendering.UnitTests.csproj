@@ -108,6 +108,7 @@
     <Compile Include="Controllers\NavigationControllerTests.cs" />
     <Compile Include="PageFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WidgetFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

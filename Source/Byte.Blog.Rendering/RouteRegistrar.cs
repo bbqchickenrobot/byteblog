@@ -16,6 +16,7 @@ namespace Byte.Blog.Rendering
             this.RegisterNavigationRoutes();
             this.RegisterEntryRoutes();
             this.RegisterPageRoutes();
+            this.RegisterSidebar();
         }
 
         private void RegisterNavigationRoutes()
@@ -42,6 +43,15 @@ namespace Byte.Blog.Rendering
                 "PageSlug",
                 "{pageSlug}",
                 new { controller = "Pages", action = "ViewPage", pageSlug = UrlParameter.Optional }
+            );
+        }
+
+        private void RegisterSidebar()
+        {
+            context.MapRoute(
+                "Sidebar",
+                "sidebar",
+                new { controller = "Sidebar", action = "Sidebar" }
             );
         }
     }

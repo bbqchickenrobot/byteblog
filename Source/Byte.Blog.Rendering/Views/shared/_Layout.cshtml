@@ -42,36 +42,9 @@
                         </div>
                         <div class="span4">
                             <div class="sidebar">
-                                <div class="well well-small">
-                                    
-                                    <p>Ben Lakey is a software developer for msnbc.com, an avid gamer, and Seattle resident. The views expressed here are my own and do not necessarily reflect those of my employer.</p>
-
-                                    <h3>Search</h3>
                                 
-                                    <h3>Stackoverflow</h3>
-                                    <!--<a href="http://stackoverflow.com/users/112765/byte">
-                                            <img src="http://stackoverflow.com/users/flair/112765.png" border="0" width="208" height="58" alt="profile for byte at Stack Overflow, Q&amp;A for professional and enthusiast programmers" title="profile for byte at Stack Overflow, Q&amp;A for professional and enthusiast programmers" />
-                                        </a>-->
-                                    <h3>Top Posts</h3>
-                                    <ol>
-                                        <li>Alpha</li>
-                                        <li>Beta</li>
-                                        <li>Charlie</li>
-                                        <li>Delta</li>
-                                    </ol>
-                                    <h3>Tags</h3>
-                                    <p>.NET ASP.NET MVC C# caching design patterns encapsulationgame development HTML5 Java Javascript LINQ NuGet performance ravendb software craftsmanship software engineering</p>
-                                    <h3>Archives</h3>
-                                    <ul>
-                                        <li>March 2012</li>
-                                        <li>February 2012</li>
-                                        <li>November 2011</li>
-                                        <li>October 2011</li>
-                                        <li>September 2011</li>
-                                        <li>August 2011</li>
-                                        <li>July 2011</li>
-                                    </ul>
-                                </div>
+                                @{ Html.RenderAction("Sidebar", "Sidebar"); }
+
                             </div>
                         </div>
                     </div>

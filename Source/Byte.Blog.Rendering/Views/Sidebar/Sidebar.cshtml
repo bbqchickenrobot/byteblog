@@ -1,0 +1,10 @@
+﻿@model global::Byte.Blog.Rendering.Models.SidebarViewModel
+
+<div class="well well-small">
+
+    @foreach (var widget in Model.Widgets)
+    {
+        Html.RenderPartial("Widget", widget);
+    }
+
+</div>
