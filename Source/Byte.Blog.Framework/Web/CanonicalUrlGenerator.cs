@@ -17,7 +17,7 @@ namespace Byte.Blog.Framework.Web
             this.urlHelper = urlHelper;
         }
 
-        public string FromRouteValues(string action, string controller, object routeValues)
+        public string FromRouteValues(string action, string controller, object routeValues = null)
         {
             var uriBuilder = new UriBuilder();
 
