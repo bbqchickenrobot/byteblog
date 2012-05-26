@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Practices.Unity;
@@ -38,12 +39,12 @@ namespace Byte.Blog.Framework.Web
         {
             get
             {
-                if (HttpContext.Current == null || HttpContext.Current.IsDebuggingEnabled)
+                if(ConfigurationManager.AppSettings["Environment"] == "Release")
                 {
-                    return EnvironmentType.Development;
+                    return EnvironmentType.Production;
                 }
 
-                return EnvironmentType.Production;
+                return EnvironmentType.Development;
             }
         }
     }
