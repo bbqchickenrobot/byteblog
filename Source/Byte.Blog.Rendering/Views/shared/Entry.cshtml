@@ -8,4 +8,10 @@
     <div class="entry-body">
         @Html.Raw(Model.Body)
     </div>
+    <p>
+        @foreach (var tag in Model.Tags)
+        {
+            <span class="label">@tag</span>
+        }
+    </p>
 </div>
