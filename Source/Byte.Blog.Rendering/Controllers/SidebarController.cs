@@ -20,7 +20,8 @@ namespace Byte.Blog.Rendering.Controllers
             var widgetFactory = new WidgetFactory(this.session);
             var widgets = widgetFactory.GetWidgets();
 
-            var widgetViewModels = widgets.Select(Mapper.Map<WidgetViewModel>);
+            var widgetViewModels = widgets.Select(
+                w => Mapper.Map(w, w.GetType(), typeof(WidgetViewModel)) as WidgetViewModel);
 
             var sidebar = new SidebarViewModel
             {

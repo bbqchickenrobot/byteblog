@@ -1,12 +1,19 @@
-﻿using Raven.Client.Embedded;
+﻿using Raven.Client.Document;
+using Raven.Client.Embedded;
 
 namespace Byte.Blog.Framework.UnitTests
 {
     public class TestableStore : EmbeddableDocumentStore
     {
-        public TestableStore()
+        public TestableStore(DocumentConvention conventions = null)
         {
             this.RunInMemory = true;
+
+            if (conventions != null)
+            {
+                this.Conventions = conventions;
+            }
+
             this.Initialize();
         }
 

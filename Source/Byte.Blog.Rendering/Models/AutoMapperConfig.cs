@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Byte.Blog.Content;
-using Byte.Blog.Rendering.Controllers;
 
 namespace Byte.Blog.Rendering.Models
 {
@@ -18,7 +17,10 @@ namespace Byte.Blog.Rendering.Models
                 .ForMember(pvm => pvm.DisqusShortname, opts => opts.Ignore())
                 .ForMember(pvm => pvm.Entries, opts => opts.Ignore());
 
-            Mapper.CreateMap<Widget, WidgetViewModel>();
+            Mapper.CreateMap<Widget, WidgetViewModel>()
+                .Include<CustomWidget, CustomWidgetViewModel>();
+
+            Mapper.CreateMap<CustomWidget, CustomWidgetViewModel>();
 
             Mapper.AssertConfigurationIsValid();
         }

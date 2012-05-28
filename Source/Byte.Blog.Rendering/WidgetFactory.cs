@@ -18,8 +18,8 @@ namespace Byte.Blog.Rendering
         {
             var databaseWidgets = this.session.Query<Widget>().ToList();
 
-            databaseWidgets.Add(Widget.AboutWidget);
-            databaseWidgets.Add(Widget.StackoverflowWidget);
+            databaseWidgets.Add(CustomWidget.AboutCustomWidget);
+            databaseWidgets.Add(CustomWidget.StackoverflowCustomWidget);
 
             return databaseWidgets;
         }

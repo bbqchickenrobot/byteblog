@@ -42,13 +42,13 @@ namespace Byte.Blog.Framework.Web
                 return;
             }
 
-            var store = CreateStore();
+            var store = this.CreateStore();
             container.RegisterInstance<IDocumentStore>(store);
 
             storeRegistered = true;
         }
 
-        private static IDocumentStore CreateStore()
+        private IDocumentStore CreateStore()
         {
             var parser = ConnectionStringParser<RavenConnectionStringOptions>.FromConnectionStringName("RavenDB");
             parser.Parse();
@@ -57,11 +57,17 @@ namespace Byte.Blog.Framework.Web
             {
                 ApiKey = parser.ConnectionStringOptions.ApiKey,
                 Url = parser.ConnectionStringOptions.Url,
+                Conventions = this.CreateDocumentConventions()
             };
 
             store.Initialize();
             
             return store;
+        }
+
+        protected virtual DocumentConvention CreateDocumentConventions()
+        {
+            return null;
         }
 
         protected virtual void RegisterTypes(IUnityContainer container)

@@ -43,6 +43,7 @@
     <Compile Include="Entry.cs" />
     <Compile Include="Page.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CustomWidget.cs" />
     <Compile Include="Widget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

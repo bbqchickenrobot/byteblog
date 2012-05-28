@@ -1,7 +1,8 @@
+﻿
 namespace Byte.Blog.Rendering.Models
 {
-    public class WidgetViewModel
+    public abstract class WidgetViewModel
     {
-        public string Markup { get; set; }
+        public string Id { get; set; }
     }
 }

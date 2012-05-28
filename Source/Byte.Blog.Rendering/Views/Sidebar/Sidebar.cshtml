@@ -2,9 +2,6 @@
 
 <div class="well well-small">
 
-    @foreach (var widget in Model.Widgets)
-    {
-        Html.RenderPartial("Widget", widget);
-    }
+    @Html.DisplayFor(m => m.Widgets)
 
 </div>

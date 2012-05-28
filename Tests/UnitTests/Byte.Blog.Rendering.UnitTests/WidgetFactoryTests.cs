@@ -1,5 +1,7 @@
 ﻿using Byte.Blog.Content;
+using Byte.Blog.Framework;
 using Byte.Blog.Framework.UnitTests;
+using Raven.Client.Document;
 using Xunit;
 
 namespace Byte.Blog.Rendering.UnitTests
@@ -9,10 +11,22 @@ namespace Byte.Blog.Rendering.UnitTests
         [Fact]
         public void Widgets_in_database_are_produced_by_factory()
         {
-            var testableStore = new TestableStore();
+            var conventions = new DocumentConvention
+            {
+                FindTypeTagName = type =>
+                                  {
+                                      if (typeof(Widget).IsAssignableFrom(type))
+                                      {
+                                          return Widget.IdPrefix.TrimSuffix("/");
+                                      }
+                                      return DocumentConvention.DefaultTypeTagName(type);
+                                  }
+            };
 
-            var fooWidget = new Widget { Markup = "foo" };
-            var barWidget = new Widget { Markup = "bar" };
+            var testableStore = new TestableStore(conventions);
+
+            var fooWidget = new CustomWidget { Markup = "foo" };
+            var barWidget = new CustomWidget { Markup = "bar" };
 
             using (var session = testableStore.OpenSession())
             {

@@ -1,6 +1,9 @@
 ﻿using System.Web.Mvc;
+using Byte.Blog.Content;
+using Byte.Blog.Framework;
 using Byte.Blog.Framework.Web;
 using Byte.Blog.Rendering.Models;
+using Raven.Client.Document;
 
 namespace Byte.Blog.Rendering
 {
@@ -21,6 +24,21 @@ namespace Byte.Blog.Rendering
         protected override void RegisterMappings()
         {
             AutoMapperConfig.RegisterMappings();
+        }
+
+        protected override DocumentConvention CreateDocumentConventions()
+        {
+            return new DocumentConvention
+            {
+                FindTypeTagName = type =>
+                {
+                    if (typeof(Widget).IsAssignableFrom(type))
+                    {
+                        return Widget.IdPrefix.TrimSuffix("/");
+                    }
+                    return DocumentConvention.DefaultTypeTagName(type);
+                }
+            };
         }
     }
 }
